@@ -1,8 +1,26 @@
-.landing-container {
+.landing-background-section-container,
+.create-recipe-info,
+.browse-recipes-info,
+.rate-recipes-info,
+.signup-container {
 	background-color: lightgray;
-	border: 1px solid black;
 }
 
-section {
-	border: 1px	solid black;
+.landing-background-section-container {
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.logo-container {
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.logo {
+	width: 100%;
+	margin-bottom: 0;
 }

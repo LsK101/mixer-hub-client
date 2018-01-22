@@ -4,45 +4,61 @@ import './landing.css';
 class Landing extends Component {
   render() {
     return (
-      <div class="landing-container">
-      	<section class="landing-background-logo row">
-      		<div class="col-12">
-      			background photo
+      <div className="landing-container">
+            <section className="landing-background-section-container row">
+                  <div className="logo-container col-12">
+      			<img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
       		</div>
       	</section>
 
-      	<section class="create-recipe-info row">
-      		<div class="col-6">
-      		create recipes info
+            <section className="create-recipe-info row">
+                  <div className="col-6">
+                        <h2>Create</h2>
+                        <p>
+                              Share your favorite drink recipes and
+                              create new ones! An intuitive interface
+                              allows you to calculate final ABV of
+                              your mixed beverages and fine tune them
+                              to your liking.    
+                        </p>
       		</div>
 
-      		<div class="col-6">
-      		create recipe photo
-      		</div>
-      	</section>
-
-      	<section class="browse-recipes-info row">
-      		<div class="col-6">
-      		browse recipe photo
-      		</div>
-
-      		<div class="col-6">
-      		browse recipes info
+      		<div className="col-6">
+                        <img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
       		</div>
       	</section>
 
-      	<section class="rate-recipes-info row">
-      		<div class="col-6">
-      		rate recipe info
+      	<section className="browse-recipes-info row">
+      		<div className="col-6">
+                        <img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
       		</div>
 
-      		<div class="col-6">
-      		rate recipe info
+      		<div className="col-6">
+                        <h2>Discover</h2>
+                        <p>
+                              Discover recipes made by others. Try
+                              something new that you think you might
+                              like!
+                        </p>
       		</div>
       	</section>
 
-      	<section class="signup-container row">
-      		<form class="col-12">
+      	<section className="rate-recipes-info row">
+      		<div className="col-6">
+                        <h2>Critique</h2>
+                        <p>
+                              Give feedback on other's recipes and
+                              receive feedback on your own. 
+                        </p>
+      		</div>
+
+      		<div className="col-6">
+                        <img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
+      		</div>
+      	</section>
+
+      	<section className="signup-container row">
+      		<form className="col-12">
       		signup form
       		</form>
       	</section>
