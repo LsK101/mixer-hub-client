@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './react-def.css';
 
-class App extends Component {
+class ReactDef extends Component {
   render() {
     return (
       <div className="App">
@@ -18,4 +18,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ReactDef;
