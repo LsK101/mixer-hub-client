@@ -4,7 +4,7 @@ import './create-recipe.css';
 class CreateRecipe extends Component {
   render() {
     return (
-      <div>
+      <div className="row">
       create recipes page
       </div>
     );

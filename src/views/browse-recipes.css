@@ -1,0 +1,17 @@
+.recipe-search-form-container,
+.recipes-container {
+	background-color: lightgray;
+}
+
+.recipe-search-form-container,
+.recipes-header {
+	text-align: center;
+}
+
+.search-form {
+	border: 1px solid black;
+}
+
+.recipe-result {
+	border: 1px solid black;
+}

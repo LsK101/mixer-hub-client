@@ -4,7 +4,7 @@ import './manage-recipes.css';
 class ManageRecipes extends Component {
   render() {
     return (
-      <div>
+      <div className="row">
       manage recipes page
       </div>
     );

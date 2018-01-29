@@ -11,7 +11,7 @@ class LandingNavBar extends Component {
       		</div>
 
       		<div className="login-button-container col-6">
-      			<button className="login-button"><Link to="/main">Login / Demo</Link></button>
+      			<button className="login-button"><Link to="/browse">Log In / Demo</Link></button>
       		</div>
       	</div>
     );

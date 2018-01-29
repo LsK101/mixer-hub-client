@@ -1,0 +1,12 @@
+.stats-section-header,
+.create-stats-section,
+.critique-stats-section {
+	background-color: lightgray;
+}
+
+.dashboard-header,
+.stats-section,
+.create-stats-section,
+.critique-stats-section {
+	text-align: center;
+}
