@@ -30,10 +30,6 @@ class Landing extends Component {
 
       	<section className="browse-recipes-info row">
       		<div className="col-6">
-                        <img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
-      		</div>
-
-      		<div className="col-6">
                         <h2>Discover</h2>
                         <p>
                               Discover recipes made by others. Try
@@ -41,6 +37,10 @@ class Landing extends Component {
                               like!
                         </p>
       		</div>
+
+                  <div className="col-6">
+                        <img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
+                  </div>
       	</section>
 
       	<section className="rate-recipes-info row">
@@ -59,7 +59,7 @@ class Landing extends Component {
 
       	<section className="signup-container row">
       		<form className="col-12">
-      		signup form
+      		put signup form here
       		</form>
       	</section>
       </div>
