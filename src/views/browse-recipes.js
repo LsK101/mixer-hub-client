@@ -1,34 +1,29 @@
 import React, {Component} from 'react';
 import './browse-recipes.css';
+import SearchForm from './components/search-form';
+import RecipeList from './components/recipe-list';
 
 class BrowseRecipes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchQuery: ''
+    };
+
+  }
   render() {
     return (
       <div className="browse-container">
       		<section className="recipe-search-form-container row">
-      			<div className="search-form col-12">
-      				<span>search form here</span>
-      			</div>
+      			<SearchForm onChange={value => this.setState({searchQuery: value})} />
       		</section>
-
-      		<section className="recipes-container row">
+      		<section className="recipes-main-container row">
       			<div className="recipes-header col-12">
       				<h2>Recipes</h2>
       			</div>
-      			<div className="recipe-result col-6">
-      				<p>recipe 1</p>
-      			</div>
-      			<div className="recipe-result col-6">
-      				<p>recipe 2</p>
-      			</div>
-      			<div className="recipe-result col-6">
-      				<p>recipe 3</p>
-      			</div>
-      			<div className="recipe-result col-6">
-      				<p>recipe 4</p>
-      			</div>
+      			<RecipeList recipes={this.props.recipes} query={this.state.searchQuery} />
       		</section>
-      	</div>
+      </div>
     );
   }
 }
