@@ -17,10 +17,9 @@ class App extends Component {
       <Router>
         <main>
           <Route exact path="/" component={LandingNavBar} />
-          <Route exact path="/browse" component={MainNavBar} />
-          <Route exact path="/create" component={MainNavBar} />
-          <Route exact path="/main" component={MainNavBar} />
-          <Route exact path="/manage" component={MainNavBar} />
+          {["/browse","/create","/main","/manage"].map(path =>
+            <Route exact path={path} component={MainNavBar} />
+          )}
 
           <Route exact path="/" component={Landing} />
           <Route exact path="/browse"
@@ -33,6 +32,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;
