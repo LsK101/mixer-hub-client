@@ -8,14 +8,16 @@ class RecipeCreator extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			"ingredientABV": [0,0,0],
-			"parts": [0,0,0]
+			"ingredientABV": [100,0,0],
+			"parts": [1,1,0]
 		};
 	}
 
 	changeABV(value,index) {
 		let stateArray = this.state.ingredientABV;
-		stateArray[index] = value;
+		let changeValue = parseInt(value,10);
+		let changeIndex = parseInt(index,10);
+		stateArray[changeIndex] = changeValue;
 		this.setState({
 			"ingredientABV": stateArray
 		});
@@ -23,7 +25,9 @@ class RecipeCreator extends Component {
 
 	changeParts(value,index) {
 		let stateArray = this.state.parts;
-		stateArray[index] = value;
+		let changeValue = parseInt(value,10);
+		let changeIndex = parseInt(index,10);
+		stateArray[changeIndex] = changeValue;
 		this.setState({
 			"parts": stateArray
 		});
@@ -39,11 +43,11 @@ class RecipeCreator extends Component {
 		return totalAlcohol;
 	}
 
-	getTotalParts(array) {
+	getTotalParts(parts) {
 		let runningTotal = 0;
 		let partsSingle;
-		for (let i = 0; i < array.length; i++) {
-			partsSingle = array[i];
+		for (let i = 0; i < parts.length; i++) {
+			partsSingle = parts[i];
 			runningTotal = runningTotal + partsSingle;
 		}
 		return runningTotal;
@@ -53,11 +57,8 @@ class RecipeCreator extends Component {
 		let totalParts = this.getTotalParts(this.state.parts);
 		let mixtureAlcohol = this.getTotalAlcohol(this.state.ingredientABV,this.state.parts);
 		let ABV = mixtureAlcohol / totalParts;
-		console.log(this.state);
 		return (
 			<div>
-				Total Alcohol: {mixtureAlcohol}<br/>
-				Total Parts: {totalParts}<br/>
 				<span>Total ABV: </span><OutputValue value={ABV} className="abv-display" />%
 				<ul className="ingredient-list">
 					<li className="ingredient">
