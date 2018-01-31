@@ -1,4 +1,5 @@
-.abv-display {
+.abv-display,
+.number-of-ingredients-input {
 	display: inline-block;
 }
 

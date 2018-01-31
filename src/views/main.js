@@ -17,9 +17,11 @@ class Main extends Component {
       				<span>Recipes Created: 0</span>
       				<br/>
       				<span>Average Recipe Rating: 5.0</span>
+              <br/>
+              <span>Average Recipe ABV: 40.00%</span>
       			</div>
       			<div className="col-6">
-      				<span>*create section graphic</span>
+      				<span>*create section graphic*, pie chart with ratings or ABVs?</span>
       			</div>
       		</section>
 
@@ -31,6 +33,8 @@ class Main extends Component {
       				<span>Average Recipe Rating: 5.0</span>
       				<br/>
       				<span>Average Given Rating: 5.0</span>
+              <br/>
+              <span>Average Recipe ABV: 5.0</span>
       			</div>
       			<div className="col-6">
       				<span>*critique section graphic</span>

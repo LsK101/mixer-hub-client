@@ -8,9 +8,17 @@ class RecipeCreator extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			"ingredientABV": [100,0,0],
-			"parts": [1,1,0]
+			"ingredients": 2,
+			"ingredientABV": [100,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+			"parts": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0]
 		};
+	}
+
+	changeNumberOfIngredients(value) {
+		let changeValue = parseInt(value,10);
+		this.setState({
+			"ingredients": changeValue
+		})
 	}
 
 	changeABV(value,index) {
@@ -56,40 +64,46 @@ class RecipeCreator extends Component {
 	render() {
 		let totalParts = this.getTotalParts(this.state.parts);
 		let mixtureAlcohol = this.getTotalAlcohol(this.state.ingredientABV,this.state.parts);
-		let ABV = mixtureAlcohol / totalParts;
+		let ABV = (mixtureAlcohol / totalParts).toFixed(2);
 		return (
 			<div>
+				<span>Ingredients: </span>
+				<NumberInput min={2} max={15} value={this.state.ingredients}
+					divClassName={"number-of-ingredients-input"}
+					onChange={value => this.changeNumberOfIngredients(value)} />
+				<br/>
 				<span>Total ABV: </span><OutputValue value={ABV} className="abv-display" />%
+
 				<ul className="ingredient-list">
 					<li className="ingredient">
 						Ingredient
 						<TextInput />
 						Ingredient Base ABV
 						<NumberInput min={0} max={100} value={this.state.ingredientABV[0]}
-							onChange={value => this.changeABV(value,0)}/>
+							onChange={value => this.changeABV(value,0)} />
 						Parts In Mixture
-						<NumberInput min={0} max={100} value={this.state.parts[0]}
-							onChange={value => this.changeParts(value,0)}/>
+						<NumberInput min={0} max={999} value={this.state.parts[0]}
+							onChange={value => this.changeParts(value,0)} />
 					</li>
 					<li className="ingredient">
 						Ingredient
 						<TextInput />
 						Ingredient Base ABV
 						<NumberInput min={0} max={100} value={this.state.ingredientABV[1]}
-							onChange={value => this.changeABV(value,1)}/>
+							onChange={value => this.changeABV(value,1)} />
 						Parts In Mixture
-						<NumberInput min={0} max={100} value={this.state.parts[1]}
-							onChange={value => this.changeParts(value,1)}/>
+						<NumberInput min={0} max={999} value={this.state.parts[1]}
+							onChange={value => this.changeParts(value,1)} />
 					</li>
 					<li className="ingredient">
 						Ingredient
 						<TextInput />
 						Ingredient Base ABV
 						<NumberInput min={0} max={100} value={this.state.ingredientABV[2]}
-							onChange={value => this.changeABV(value,2)}/>
+							onChange={value => this.changeABV(value,2)} />
 						Parts In Mixture
-						<NumberInput min={0} max={100} value={this.state.parts[2]}
-							onChange={value => this.changeParts(value,2)}/>
+						<NumberInput min={0} max={999} value={this.state.parts[2]}
+							onChange={value => this.changeParts(value,2)} />
 					</li>
 				</ul>
 			</div>
