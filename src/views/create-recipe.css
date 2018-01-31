@@ -1,0 +1,8 @@
+.create-recipe-header-container,
+.recipe-form-container {
+	background-color: lightgray;
+}
+
+.create-recipe-header {
+	text-align: center;
+}

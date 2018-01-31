@@ -1,0 +1,11 @@
+.abv-display {
+	display: inline-block;
+}
+
+.ingredient-list {
+	list-style: none;
+}
+
+.ingredient {
+	margin-bottom: 20px;
+}
