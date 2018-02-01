@@ -1,5 +1,6 @@
 .abv-display,
-.number-of-ingredients-input {
+.number-of-ingredients-input,
+.ingredient {
 	display: inline-block;
 }
 
@@ -8,5 +9,10 @@
 }
 
 .ingredient {
+	margin-right: 20px;
 	margin-bottom: 20px;
+}
+
+.ingredient-hidden {
+	display: none;
 }
