@@ -10,7 +10,7 @@ class RecipeCreator extends Component {
 		this.state = {
 			"ingredients": 2,
 			"visibility": ["ingredient","ingredient","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden","ingredient-hidden"],
-			"ingredientABV": [100,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+			"ingredientABV": [40,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			"parts": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0]
 		};
 	}
@@ -40,7 +40,7 @@ class RecipeCreator extends Component {
 
 	changeABV(value,index) {
 		let stateArray = this.state.ingredientABV;
-		let changeValue = parseInt(value,10);
+		let changeValue = parseFloat(value);
 		let changeIndex = parseInt(index,10);
 		stateArray[changeIndex] = changeValue;
 		this.setState({
@@ -50,7 +50,7 @@ class RecipeCreator extends Component {
 
 	changeParts(value,index) {
 		let stateArray = this.state.parts;
-		let changeValue = parseInt(value,10);
+		let changeValue = parseFloat(value);
 		let changeIndex = parseInt(index,10);
 		stateArray[changeIndex] = changeValue;
 		this.setState({
