@@ -5,7 +5,7 @@ function SearchForm(props) {
   return (
     <form onSubmit={e => e.preventDefault()}>
       <label htmlFor="search">Search</label>&emsp;
-      <input ttype="search" id="search" name="search"
+      <input type="search" id="search" name="search"
         onChange={e => props.onChange(e.target.value)} />
     </form>
   );

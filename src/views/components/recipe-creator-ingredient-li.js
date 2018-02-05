@@ -7,7 +7,8 @@ function IngredientListElement(props) {
 	return (
 		<li className={props.className}>
 			Ingredient
-			<TextInput />
+			<TextInput value={props.valueIngredient} 
+				onChange={value => props.onChangeIngredient(value)} />
 			Base ABV<br/>
 			<NumberInput divClassName="ABV-input" min={0} max={100} value={props.valueABV}
 				onChange={value => props.onChangeABV(value)} />
