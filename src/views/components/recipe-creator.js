@@ -3,11 +3,13 @@ import './recipe-creator.css';
 import NumberInput from './number-input';
 import OutputValue from './output-value';
 import IngredientListElement from './recipe-creator-ingredient-li';
+import TextInput from './text-input';
 
 class RecipeCreator extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			"recipeName": "",
 			"ingredients": 2,
 			"visibility": ["ingredient","ingredient","ingredient-hidden",
 							"ingredient-hidden","ingredient-hidden","ingredient-hidden",
@@ -19,6 +21,13 @@ class RecipeCreator extends Component {
 			"parts": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			"totalABV": 20.00
 		};
+	}
+
+	changeRecipeName(value) {
+		let changeValue = value;
+		this.setState({
+			"recipeName": changeValue
+		});
 	}
 
 	changeNumberOfIngredients(value) {
@@ -109,6 +118,11 @@ class RecipeCreator extends Component {
 	render() {
 		return (
 			<div>
+				<span>Recipe Name: </span>
+				<TextInput value={this.state.recipeName}
+					divClassName={"recipe-name-input"}
+					onChange={value => this.changeRecipeName(value)} />
+				<br/>
 				<span>Ingredients: </span>
 				<NumberInput min={2} max={15} value={this.state.ingredients}
 					divClassName={"number-of-ingredients-input"}
