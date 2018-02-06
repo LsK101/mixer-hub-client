@@ -35,6 +35,9 @@ class RecipeCreator extends Component {
 		if (ingredients < 2) {
 			return alert('must be at least 2 ingredients');
 		}
+		if (ingredients > 15) {
+			return alert('must be at most 15 ingredients');
+		}
 		for (let i = 0; i < ingredients; i++) {
 			ingredientsList.push(this.state.ingredientsList[i]);
 			ingredientABV.push(this.state.ingredientABV[i]);
@@ -85,9 +88,6 @@ class RecipeCreator extends Component {
 
 	changeNumberOfIngredients(value) {
 		let changeValue = parseInt(value,10);
-		if (changeValue > 15) {
-			changeValue = 15;
-		}
 		this.setState({
 			"ingredients": changeValue
 		});
