@@ -3,8 +3,10 @@ import React from 'react';
 function checkStringEquality(searchQuery, recipeName,recipeIngredients) {
 	const queryStrings = searchQuery.toLowerCase().split(" ").filter(Boolean);
 	const recipeNameLowerCase = recipeName.toLowerCase();
+	const recipeIngredientsString = recipeIngredients.join(" ").toLowerCase().split(" ");
+	const recipeTotalString = recipeNameLowerCase + " " + recipeIngredientsString;
 	for (let i = 0; i < queryStrings.length; i++) {
-		if (!recipeNameLowerCase.includes(queryStrings[i])) {
+		if (!recipeTotalString.includes(queryStrings[i])) {
 			return false;
 		}
 	}
