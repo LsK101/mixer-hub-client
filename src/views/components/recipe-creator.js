@@ -20,7 +20,7 @@ class RecipeCreator extends Component {
 							"ingredient-hidden","ingredient-hidden","ingredient-hidden"],
 			"ingredientsList": ["","","","","","","","","","","","","","",""],
 			"ingredientABV": [40,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-			"parts": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+			"parts": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 			"totalABV": 20.00
 		};
 	}
@@ -32,6 +32,9 @@ class RecipeCreator extends Component {
 		let ingredientABV = [];
 		let parts = [];
 		let totalABV = this.state.totalABV;
+		if (ingredients < 2) {
+			return alert('must be at least 2 ingredients');
+		}
 		for (let i = 0; i < ingredients; i++) {
 			ingredientsList.push(this.state.ingredientsList[i]);
 			ingredientABV.push(this.state.ingredientABV[i]);
@@ -55,16 +58,26 @@ class RecipeCreator extends Component {
 		.then((res) => {
 			if (res.status === 200) {
 				alert('Recipe Created!')
+				this.setState({
+					"recipeName": "",
+					"ingredients": 2,
+					"visibility": ["ingredient","ingredient","ingredient-hidden",
+								"ingredient-hidden","ingredient-hidden","ingredient-hidden",
+								"ingredient-hidden","ingredient-hidden","ingredient-hidden",
+								"ingredient-hidden","ingredient-hidden","ingredient-hidden",
+								"ingredient-hidden","ingredient-hidden","ingredient-hidden"],
+					"ingredientsList": ["","","","","","","","","","","","","","",""],
+					"ingredientABV": [40,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					"parts": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+					"totalABV": 20.00
+				});
 			}
-		});
+		})
+		.catch((err) => alert(err));
 	}
 
 	changeRecipeName(value) {
-		let changeValue = value.toLowerCase().split(' ');
-		for (let i = 0; i < changeValue.length; i++) {
-			changeValue[i] = changeValue[i].charAt(0).toUpperCase() + changeValue[i].slice(1);
-		}
-		changeValue = changeValue.join(' ');
+		let changeValue = value
 		this.setState({
 			"recipeName": changeValue
 		});
@@ -72,6 +85,9 @@ class RecipeCreator extends Component {
 
 	changeNumberOfIngredients(value) {
 		let changeValue = parseInt(value,10);
+		if (changeValue > 15) {
+			changeValue = 15;
+		}
 		this.setState({
 			"ingredients": changeValue
 		});

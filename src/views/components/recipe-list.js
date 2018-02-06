@@ -17,9 +17,9 @@ function RecipeList(props) {
 	.map((recipe,index) =>
 		<li key={index} className="recipe-result col-12">
 			<strong>{recipe.recipeName}</strong>: {parseFloat(recipe.totalABV).toFixed(2)}% ABV<br/>
-			<ul>
+			<ul className="recipe-ingredient-list">
 			{recipe.ingredients.map((ingredient,index) => 
-				<li key={index}>{ingredient}</li>
+				<li key={index} className="recipe-ingredient">{ingredient}</li>
 			)}
 			</ul>
 		</li>
