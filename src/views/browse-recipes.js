@@ -27,7 +27,8 @@ class BrowseRecipes extends Component {
               return this.setState({
                 "recipeData": recipeData
               });
-            });
+            })
+            .catch(err => alert(err));
   }
 
   render() {
