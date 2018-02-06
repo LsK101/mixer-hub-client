@@ -4,6 +4,8 @@ import NumberInput from './number-input';
 import OutputValue from './output-value';
 import IngredientListElement from './recipe-creator-ingredient-li';
 import TextInput from './text-input';
+import Button from './button';
+import {API_BASE_URL} from '../../config.js'
 
 class RecipeCreator extends Component {
 	constructor(props) {
@@ -21,6 +23,40 @@ class RecipeCreator extends Component {
 			"parts": [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			"totalABV": 20.00
 		};
+	}
+
+	submitRecipe(props) {
+		let recipeName = this.state.recipeName;
+		let ingredients = this.state.ingredients;
+		let ingredientsList = [];
+		let ingredientABV = [];
+		let parts = [];
+		let totalABV = this.state.totalABV;
+		for (let i = 0; i < ingredients; i++) {
+			ingredientsList.push(this.state.ingredientsList[i]);
+			ingredientABV.push(this.state.ingredientABV[i]);
+			parts.push(this.state.parts[i]);
+		}
+		fetch(`${API_BASE_URL}/recipes/add`, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				"recipeName": recipeName,
+				"ingredients": ingredients,
+				"ingredientsList": ingredientsList,
+				"ingredientABV": ingredientABV,
+				"parts": parts,
+				"totalABV": totalABV
+			})
+		})
+		.then((res) => {
+			if (res.status === 200) {
+				alert('Recipe Created!')
+			}
+		});
 	}
 
 	changeRecipeName(value) {
@@ -238,6 +274,7 @@ class RecipeCreator extends Component {
 						valueParts={this.state.parts[14]}
 						onChangeParts={value => this.changeParts(value,14)} />
 				</ul>
+				<Button value="Submit" onClick={() => this.submitRecipe()} />
 			</div>
 		);
 	}

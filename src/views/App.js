@@ -20,7 +20,7 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetchRecipeDatabase();
   }
 
@@ -48,7 +48,8 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route exact path="/browse"
             render={() => <BrowseRecipes recipes={this.state.recipeData} />} />
-          <Route exact path="/create" component={CreateRecipe} />
+          <Route exact path="/create" 
+            render={() => <CreateRecipe reloadRecipes={this.fetchRecipeDatabase()} />} />
           <Route exact path="/main" component={Main} />
           <Route exact path="/manage" component={ManageRecipes} />
         </main>
