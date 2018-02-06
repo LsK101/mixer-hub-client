@@ -60,7 +60,11 @@ class RecipeCreator extends Component {
 	}
 
 	changeRecipeName(value) {
-		let changeValue = value;
+		let changeValue = value.toLowerCase().split(' ');
+		for (let i = 0; i < changeValue.length; i++) {
+			changeValue[i] = changeValue[i].charAt(0).toUpperCase() + changeValue[i].slice(1);
+		}
+		changeValue = changeValue.join(' ');
 		this.setState({
 			"recipeName": changeValue
 		});
@@ -92,7 +96,11 @@ class RecipeCreator extends Component {
 
 	changeIngredient(value,index) {
 		let stateArray = this.state.ingredientsList;
-		let changeValue = value;
+		let changeValue = value.toLowerCase().split(' ');
+		for (let i = 0; i < changeValue.length; i++) {
+			changeValue[i] = changeValue[i].charAt(0).toUpperCase() + changeValue[i].slice(1);
+		}
+		changeValue = changeValue.join(' ');
 		let changeIndex = parseInt(index,10);
 		stateArray[changeIndex] = changeValue;
 		this.setState({
