@@ -9,9 +9,33 @@ import Main from './main';
 import ManageRecipes from './manage-recipes';
 import LandingNavBar from './components/landing-navbar';
 import MainNavBar from './components/main-navbar';
-import RecipeData from '../dummyrecipes.json';
+import {API_BASE_URL} from '../config.js'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      "recipeData": []
+    };
+  }
+
+  componentDidMount() {
+    this.fetchRecipeDatabase();
+  }
+
+  fetchRecipeDatabase() {
+    return fetch(`${API_BASE_URL}/recipes`)
+            .then(res => {
+              return res.json();
+            })
+            .then(recipeData => {
+              this.setState({
+                "recipeData": recipeData
+              });
+            });
+  }
+
   render() {
     return (
       <Router>
@@ -23,7 +47,7 @@ class App extends Component {
 
           <Route exact path="/" component={Landing} />
           <Route exact path="/browse"
-            render={() => <BrowseRecipes recipes={RecipeData} />} />
+            render={() => <BrowseRecipes recipes={this.state.recipeData} />} />
           <Route exact path="/create" component={CreateRecipe} />
           <Route exact path="/main" component={Main} />
           <Route exact path="/manage" component={ManageRecipes} />

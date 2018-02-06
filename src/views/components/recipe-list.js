@@ -1,6 +1,6 @@
 import React from 'react';
 
-function checkStringEquality(searchQuery, recipeName) {
+function checkStringEquality(searchQuery, recipeName,recipeIngredients) {
 	const queryStrings = searchQuery.toLowerCase().split(" ").filter(Boolean);
 	const recipeNameLowerCase = recipeName.toLowerCase();
 	for (let i = 0; i < queryStrings.length; i++) {
@@ -13,10 +13,15 @@ function checkStringEquality(searchQuery, recipeName) {
 
 function RecipeList(props) {
 	const recipes = props.recipes
-	.filter(recipe => checkStringEquality(props.query,recipe.name))
-	.map((recipe,index) =>
+	.filter(recipe => checkStringEquality(props.query,recipe.recipeName,recipe.ingredients))
+	.map((recipe) =>
 		<div className="recipe-result col-6">
-			<strong>{recipe.name}</strong>: {recipe.ABV}%ABV
+			<strong>{recipe.recipeName}</strong>: {parseFloat(recipe.totalABV).toFixed(2)}% ABV<br/>
+			<ul>
+			{recipe.ingredients.map(ingredient => 
+				<li>{ingredient}</li>
+			)}
+			</ul>
 		</div>
 	);
 	return (
