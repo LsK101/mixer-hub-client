@@ -14,19 +14,21 @@ function checkStringEquality(searchQuery, recipeName,recipeIngredients) {
 function RecipeList(props) {
 	const recipes = props.recipes
 	.filter(recipe => checkStringEquality(props.query,recipe.recipeName,recipe.ingredients))
-	.map((recipe) =>
-		<div className="recipe-result col-6">
+	.map((recipe,index) =>
+		<li key={index} className="recipe-result col-12">
 			<strong>{recipe.recipeName}</strong>: {parseFloat(recipe.totalABV).toFixed(2)}% ABV<br/>
 			<ul>
-			{recipe.ingredients.map(ingredient => 
-				<li>{ingredient}</li>
+			{recipe.ingredients.map((ingredient,index) => 
+				<li key={index}>{ingredient}</li>
 			)}
 			</ul>
-		</div>
+		</li>
 	);
 	return (
 		<div className="recipe-results-container">
-			{recipes}
+			<ul className="recipe-list row">
+				{recipes}
+			</ul>
 		</div>
 	);
 }
