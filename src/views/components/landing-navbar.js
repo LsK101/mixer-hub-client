@@ -1,18 +1,34 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import './landing-navbar.css';
+import LoginPopup from './login-popup';
 
 class LandingNavBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showLogin: false,
+      username: '',
+      password: ''
+    };
+  }
+
+  toggleLoginPopup() {
+    this.setState({
+      showLogin: !this.state.showLogin
+    });
+  }
+
   render() {
     return (
       	<div className="landing-navbar-container row">
-      		<div className="col-6">
+      		<div className="navbar-header-container col-6">
       			<span>MixerHub</span>
       		</div>
 
       		<div className="login-button-container col-6">
-      			<button className="login-button"><Link to="/browse">Log In / Demo</Link></button>
+      			<button onClick={this.toggleLoginPopup.bind(this)}>Log In</button>
       		</div>
+          {this.state.showLogin ? <LoginPopup closePopup={this.toggleLoginPopup.bind(this)} /> : null}
       	</div>
     );
   }

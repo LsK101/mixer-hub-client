@@ -6,3 +6,13 @@
 .login-button-container {
 	text-align: right;
 }
+
+.navbar-site-title {
+	vertical-align: bottom;
+}
+
+.navbar-header-container,
+.login-button-container {
+	margin-top: 5px;
+  	margin-bottom: 5px;
+}

@@ -11,6 +11,12 @@ import LandingNavBar from './components/landing-navbar';
 import MainNavBar from './components/main-navbar';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showLogin: false
+    }
+  }
 
   render() {
     return (
