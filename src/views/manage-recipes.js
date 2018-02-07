@@ -5,7 +5,7 @@ class ManageRecipes extends Component {
   render() {
     return (
       <div className="row">
-      manage recipes page
+      coming soon!
       </div>
     );
   }
