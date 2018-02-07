@@ -8,6 +8,10 @@
 	text-align: center;
 }
 
+.recipe-search-form-container {
+	padding-top: 20px;
+}
+
 .search-form {
 	border: 1px solid black;
 }

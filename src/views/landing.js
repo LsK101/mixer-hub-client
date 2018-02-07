@@ -57,10 +57,26 @@ class Landing extends Component {
       		</div>
       	</section>
 
-      	<section className="signup-container row">
-      		<form className="col-12">
-      		put signup form here
-      		</form>
+      	<section id="signup-form" className="signup-container row">
+      		<div class="col-12">
+                        <h1 class="form-header">Start Mixing!</h1>
+
+                        <form className="signup-form">
+                        <label for="signup-username">New Username</label>
+                        <br/>
+                        <input id="signup-username" className="signup-username input-box" type="text" required />
+                        <br/><br/>
+                        <label for="signup-password">Password</label>
+                        <br/>
+                        <input id="signup-password" className="signup-password input-box" type="password" required />
+                        <br/><br/>
+                        <label for="confirm-password">Confirm Password</label>
+                        <br/>
+                        <input id="confirm-password" className="confirm-password input-box" type="password" required />
+                        <br/><br/>
+                        <button type="submit" className="form-signup-button">Sign Up</button>
+                        </form>
+                  </div>
       	</section>
       </div>
     );

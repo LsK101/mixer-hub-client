@@ -16,6 +16,11 @@ class LandingNavBar extends Component {
     });
   }
 
+  scrollToSignupForm() {
+    const element = document.getElementById("signup-form");
+    element.scrollIntoView({behavior: "smooth"});
+  }
+
   render() {
     return (
       	<div className="landing-navbar-container row">
@@ -25,6 +30,7 @@ class LandingNavBar extends Component {
 
       		<div className="login-button-container col-6">
       			<button onClick={this.toggleLoginPopup.bind(this)}>Log In</button>
+            <button className="signup-button" onClick={this.scrollToSignupForm.bind(this)}>Sign Up</button>
       		</div>
           {this.state.showLogin ? 
             <LoginPopup closePopup={this.toggleLoginPopup.bind(this)} 

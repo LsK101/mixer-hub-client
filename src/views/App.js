@@ -19,7 +19,10 @@ class App extends Component {
       usernameInput: '',
       passwordInput: '',
       authToken: null,
-      currentUser: null
+      currentUser: null,
+      signupUsername: '',
+      signupPassword: '',
+      signupPasswordConfirm: ''
     }
   }
 
@@ -37,6 +40,27 @@ class App extends Component {
     });
   }
 
+  changeSignupUsernameInput(value) {
+    let changeValue = value
+    this.setState({
+      "signupUsername": changeValue
+    });
+  }
+
+  changeSignupPasswordInput(value) {
+    let changeValue = value
+    this.setState({
+      "signupPassword": changeValue
+    });
+  }
+
+  changeSignupPasswordConfirmInput(value) {
+    let changeValue = value
+    this.setState({
+      "signupPasswordConfirm": changeValue
+    });
+  }
+
   getAuthToken() {
     return fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
@@ -51,7 +75,7 @@ class App extends Component {
             }).then(res => res.json())
             .then(({authToken}) => this.storeAuthInfo(authToken))
             .then(() => this.clearInputFields())
-            .catch(err => alert(err));
+            .catch(() => alert('Incorrect username or password'));
   }
 
   storeAuthInfo(authToken) {
@@ -75,7 +99,10 @@ class App extends Component {
   clearInputFields() {
     this.setState({
       usernameInput: '',
-      passwordInput: ''
+      passwordInput: '',
+      signupUsername: '',
+      signupPassword: '',
+      signupPasswordConfirm: ''
     });
   }
 
@@ -99,17 +126,29 @@ class App extends Component {
                             passwordInput={this.state.passwordInput}
                             onChangePassword={value => this.changePasswordInput(value)}
                             onClick={this.getAuthToken.bind(this)} />) } />
+          <Route exact path="/" component={Landing} />
 
           {["/browse","/create","/main","/manage"].map((path,index) =>
             <Route key={index} exact path={path} 
             render={() => <MainNavBar logout={this.logout.bind(this)} />} />
           )}
-
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/browse" component={BrowseRecipes} />
-          <Route exact path="/create" component={CreateRecipe} />
-          <Route exact path="/main" component={Main} />
-          <Route exact path="/manage" component={ManageRecipes} />
+          <Route exact path="/browse" 
+            render={() => (this.state.currentUser) ?
+                          (<BrowseRecipes
+                            authToken={this.state.authToken} />) :
+                          (<Redirect to="/" />)} />
+          <Route exact path="/create" 
+            render={() => (this.state.currentUser) ?
+                          (<CreateRecipe />) :
+                          (<Redirect to="/" />)} />
+          <Route exact path="/main" 
+            render={() => (this.state.currentUser) ?
+                          (<Main />) :
+                          (<Redirect to="/" />)} />
+          <Route exact path="/manage" 
+            render={() => (this.state.currentUser) ?
+                          (<ManageRecipes />) :
+                          (<Redirect to="/" />)} />
         </main>
       </Router>
     );

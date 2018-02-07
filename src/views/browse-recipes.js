@@ -19,7 +19,12 @@ class BrowseRecipes extends Component {
   }
 
   fetchRecipeDatabase() {
-    return fetch(`${API_BASE_URL}/recipes`)
+    return fetch(`${API_BASE_URL}/recipes`, {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${this.props.authToken}`
+              }
+            })
             .then(res => {
               return res.json();
             })
@@ -37,7 +42,7 @@ class BrowseRecipes extends Component {
       		<section className="recipe-search-form-container row">
       			<SearchForm onChange={value => this.setState({searchQuery: value})} />
       		</section>
-      		<section className="recipes-main-container row">
+      		<section className="recipes-main-container">
       			<div className="recipes-header col-12">
       				<h2>Recipes</h2>
       			</div>

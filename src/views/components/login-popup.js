@@ -11,7 +11,7 @@ class LoginPopup extends Component {
 				    <label htmlFor="login-username">Username</label>
 				    <input id="login-username" className="login-form-input" type="text" 
               value={this.props.usernameInput} 
-              onChange={e => this.props.onChangeUsername(e.target.value)} required/>
+              onChange={e => this.props.onChangeUsername(e.target.value)} required />
           </div>
 			     <div className="password-container">
 				    <label htmlFor="login-password">Password</label>
