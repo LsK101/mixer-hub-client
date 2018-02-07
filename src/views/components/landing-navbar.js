@@ -3,12 +3,10 @@ import './landing-navbar.css';
 import LoginPopup from './login-popup';
 
 class LandingNavBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showLogin: false,
-      username: '',
-      password: ''
     };
   }
 
@@ -28,7 +26,14 @@ class LandingNavBar extends Component {
       		<div className="login-button-container col-6">
       			<button onClick={this.toggleLoginPopup.bind(this)}>Log In</button>
       		</div>
-          {this.state.showLogin ? <LoginPopup closePopup={this.toggleLoginPopup.bind(this)} /> : null}
+          {this.state.showLogin ? 
+            <LoginPopup closePopup={this.toggleLoginPopup.bind(this)} 
+              usernameInput={this.props.usernameInput}
+              onChangeUsername={value => this.props.onChangeUsername(value)} 
+              passwordInput={this.props.passwordInput}
+              onChangePassword={value => this.props.onChangePassword(value)}
+              onClick={this.props.onClick} /> 
+            : null}
       	</div>
     );
   }
