@@ -19,12 +19,8 @@ class App extends Component {
       usernameInput: '',
       passwordInput: '',
       authToken: null,
-      currentUser: null,
+      currentUser: null
     }
-  }
-
-  componentDidUpdate() {
-    this.checkForAuthToken();
   }
 
   changeUsernameInput(value) {
@@ -41,12 +37,6 @@ class App extends Component {
     });
   }
 
-  checkForAuthToken() {
-    if (this.state.currentUser !== null) {
-      return <Redirect to="/main" />;
-    }
-  }
-
   getAuthToken() {
     return fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
@@ -59,14 +49,15 @@ class App extends Component {
                   "password": this.state.passwordInput,
                 })
             }).then(res => res.json())
-            .then(({authToken}) => this.storeAuthInfo(authToken));
+            .then(({authToken}) => this.storeAuthInfo(authToken))
+            .then(() => this.clearInputFields())
+            .catch(err => alert(err));
   }
 
   storeAuthInfo(authToken) {
     const decodedToken = jwtDecode(authToken);
     this.setAuthToken(authToken);
     this.authSuccess(decodedToken.user);
-    this.saveAuthToken(authToken,decodedToken.user);
   }
 
   setAuthToken(authToken) {
@@ -81,26 +72,37 @@ class App extends Component {
     })
   }
 
-  saveAuthToken(authToken,username) {
-    try {
-      localStorage.setItem('authToken', authToken);
-      localStorage.setItem('username', username);
-    } catch(e){}
-  };
+  clearInputFields() {
+    this.setState({
+      usernameInput: '',
+      passwordInput: ''
+    });
+  }
+
+  logout() {
+    this.setState({
+      authToken: null,
+      currentUser: null
+    });
+  }
 
   render() {
     return (
       <Router>
         <main>
           <Route exact path="/" 
-            render={() => <LandingNavBar 
+            render={() => (this.state.currentUser) ?
+                          (<Redirect to="/browse" />) :
+                          (<LandingNavBar 
                             usernameInput={this.state.usernameInput}
                             onChangeUsername={value => this.changeUsernameInput(value)} 
                             passwordInput={this.state.passwordInput}
                             onChangePassword={value => this.changePasswordInput(value)}
-                            onClick={this.getAuthToken.bind(this)}  />} />
+                            onClick={this.getAuthToken.bind(this)} />) } />
+
           {["/browse","/create","/main","/manage"].map((path,index) =>
-            <Route key={index} exact path={path} component={MainNavBar} />
+            <Route key={index} exact path={path} 
+            render={() => <MainNavBar logout={this.logout.bind(this)} />} />
           )}
 
           <Route exact path="/" component={Landing} />
