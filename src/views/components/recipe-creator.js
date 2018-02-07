@@ -183,7 +183,7 @@ class RecipeCreator extends Component {
 					divClassName={"recipe-name-input"}
 					onChange={value => this.changeRecipeName(value)} />
 				<br/>
-				<span>Ingredients: </span>
+				<span>Ingredients (2-15): </span>
 				<NumberInput min={2} max={15} value={this.state.ingredients}
 					divClassName={"number-of-ingredients-input"}
 					onChange={value => this.changeNumberOfIngredients(value)} />

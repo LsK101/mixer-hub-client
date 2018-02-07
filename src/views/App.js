@@ -126,7 +126,8 @@ class App extends Component {
                             passwordInput={this.state.passwordInput}
                             onChangePassword={value => this.changePasswordInput(value)}
                             onClick={this.getAuthToken.bind(this)} />) } />
-          <Route exact path="/" component={Landing} />
+          <Route exact path="/" 
+            render={() => (<Landing />)} />
 
           {["/browse","/create","/main","/manage"].map((path,index) =>
             <Route key={index} exact path={path} 
