@@ -20,6 +20,7 @@ class App extends Component {
       passwordInput: '',
       authToken: null,
       currentUser: null,
+      signupFirstName: '',
       signupUsername: '',
       signupPassword: '',
       signupPasswordConfirm: ''
@@ -37,6 +38,17 @@ class App extends Component {
     let changeValue = value
     this.setState({
       "passwordInput": changeValue
+    });
+  }
+
+  changeSignupFirstNameInput(value) {
+    let changeValue = value.toLowerCase().split(' ');
+    for (let i = 0; i < changeValue.length; i++) {
+      changeValue[i] = changeValue[i].charAt(0).toUpperCase() + changeValue[i].slice(1);
+    }
+    changeValue = changeValue.join(' ');
+    this.setState({
+      "signupFirstName": changeValue
     });
   }
 
@@ -69,13 +81,13 @@ class App extends Component {
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  "username": this.state.usernameInput,
+                  "username": this.state.usernameInput.toLowerCase(),
                   "password": this.state.passwordInput,
                 })
             }).then(res => res.json())
             .then(({authToken}) => this.storeAuthInfo(authToken))
             .then(() => this.clearInputFields())
-            .catch(() => alert('Incorrect username or password'));
+            .catch((err) => alert('incorrect username or password'));
   }
 
   storeAuthInfo(authToken) {
@@ -96,10 +108,51 @@ class App extends Component {
     })
   }
 
+  sendSignupCredentials() {
+    let firstName = this.state.signupFirstName;
+    let username = this.state.signupUsername.toLowerCase();
+    let password = this.state.signupPassword;
+    let passwordConfirm = this.state.signupPasswordConfirm;
+    if (password !== passwordConfirm) {
+      return alert('passwords do not match')
+    }
+    if (username.length < 3 || username.length > 25) {
+      return alert('username must be between 3 and 25 characters')
+    }
+    if (password.length < 10 || password.length > 72) {
+      return alert('password must be between 10 and 72 characters')
+    }
+    if (username !== username.trim() || password !== password.trim()) {
+      return alert('username and password cannot begin or end with whitespace')
+    }
+    fetch(`${API_BASE_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "firstName": firstName,
+        "username": username,
+        "password": password
+      })
+    })
+    .then(() => 
+      this.setState({
+        usernameInput: this.state.signupUsername,
+        passwordInput: this.state.signupPassword
+      })
+    )
+    .then(() => alert(`user ${this.state.usernameInput} successfully created`))
+    .then(() => this.getAuthToken())
+    .catch(err => alert(err));
+  }
+
   clearInputFields() {
     this.setState({
       usernameInput: '',
       passwordInput: '',
+      signupFirstName: '',
       signupUsername: '',
       signupPassword: '',
       signupPasswordConfirm: ''
@@ -127,7 +180,16 @@ class App extends Component {
                             onChangePassword={value => this.changePasswordInput(value)}
                             onClick={this.getAuthToken.bind(this)} />) } />
           <Route exact path="/" 
-            render={() => (<Landing />)} />
+            render={() => (<Landing 
+                            firstName={this.state.signupFirstName}
+                            onChangeFirstName={value => this.changeSignupFirstNameInput(value)}
+                            username={this.state.signupUsername}
+                            onChangeUsername={value => this.changeSignupUsernameInput(value)}
+                            password={this.state.signupPassword}
+                            onChangePassword={value => this.changeSignupPasswordInput(value)} 
+                            passwordConfirm={this.state.signupPasswordConfirm}
+                            onChangePasswordConfirm={value => this.changeSignupPasswordConfirmInput(value)}
+                            onClick={this.sendSignupCredentials.bind(this)} />) } />
 
           {["/browse","/create","/main","/manage"].map((path,index) =>
             <Route key={index} exact path={path} 

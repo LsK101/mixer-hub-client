@@ -61,20 +61,32 @@ class Landing extends Component {
       		<div class="col-12">
                         <h1 class="form-header">Start Mixing!</h1>
 
-                        <form className="signup-form">
-                        <label for="signup-username">New Username</label>
+                        <form className="signup-form" onSubmit={e => e.preventDefault()}>
+                        <label htmlFor="signup-firstname">First Name</label>
                         <br/>
-                        <input id="signup-username" className="signup-username input-box" type="text" required />
+                        <input id="signup-firstname" className="signup-firstname input-box" type="text" 
+                              value={this.props.firstName} 
+                              onChange={e => this.props.onChangeFirstName(e.target.value)} required />
                         <br/><br/>
-                        <label for="signup-password">Password</label>
+                        <label htmlFor="signup-username">Username (3-25 Characters)</label>
                         <br/>
-                        <input id="signup-password" className="signup-password input-box" type="password" required />
+                        <input id="signup-username" className="signup-username input-box" type="text" 
+                              value={this.props.username} 
+                              onChange={e => this.props.onChangeUsername(e.target.value)} required />
                         <br/><br/>
-                        <label for="confirm-password">Confirm Password</label>
+                        <label htmlFor="signup-password">Password (10-72 Characters)</label>
                         <br/>
-                        <input id="confirm-password" className="confirm-password input-box" type="password" required />
+                        <input id="signup-password" className="signup-password input-box" type="password" 
+                              value={this.props.password}
+                              onChange={e => this.props.onChangePassword(e.target.value)} required />
                         <br/><br/>
-                        <button type="submit" className="form-signup-button">Sign Up</button>
+                        <label htmlFor="confirm-password">Confirm Password</label>
+                        <br/>
+                        <input id="confirm-password" className="confirm-password input-box" type="password" 
+                              value={this.props.passwordConfirm}
+                              onChange={e => this.props.onChangePasswordConfirm(e.target.value)} required />
+                        <br/><br/>
+                        <button type="submit" className="form-signup-button" onClick={this.props.onClick}>Sign Up</button>
                         </form>
                   </div>
       	</section>
