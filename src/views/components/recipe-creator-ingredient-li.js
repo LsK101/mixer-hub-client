@@ -6,16 +6,18 @@ import NumberInput from './number-input';
 function IngredientListElement(props) {
 	return (
 		<li className={props.className}>
-			Ingredient
+			Ingredient:
 			<TextInput value={props.valueIngredient} 
 				onChange={value => props.onChangeIngredient(value)} />
-			Base ABV<br/>
-			<NumberInput divClassName="ABV-input" min={0} max={100} value={props.valueABV}
+			<NumberInput divClassName="ABV-input-container" className="ABV-input"
+				min={0} max={100} value={props.valueABV}
 				onChange={value => props.onChangeABV(value)} />
-			<span>%</span><br/>
-			<span>Parts In Mixture</span>
-			<NumberInput min={0} max={99999} value={props.valueParts}
+			<span>% ABV</span>
+			<br/>
+			<NumberInput divClassName="parts-input-container" className="parts-input"
+				min={0} max={99999} value={props.valueParts}
 				onChange={value => props.onChangeParts(value)} />
+			<span> Parts</span>
 		</li>
 	);
 }
