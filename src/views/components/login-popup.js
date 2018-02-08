@@ -5,7 +5,7 @@ class LoginPopup extends Component {
   render() {
     return (
       <div className="popup">
-        <div className="popup_inner row">
+        <div className="popup-inner row">
         <form onSubmit={e => e.preventDefault()}>
           <div className="username-container">
 				    <label htmlFor="login-username">Username</label>

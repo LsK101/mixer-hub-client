@@ -6,6 +6,7 @@ import IngredientListElement from './recipe-creator-ingredient-li';
 import TextInput from './text-input';
 import Button from './button';
 import {API_BASE_URL} from '../../config.js'
+import LoadingPopup from './loading';
 
 class RecipeCreator extends Component {
 	constructor(props) {
@@ -21,11 +22,19 @@ class RecipeCreator extends Component {
 			"ingredientsList": ["","","","","","","","","","","","","","",""],
 			"ingredientABV": [40,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			"parts": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-			"totalABV": 20.00
+			"totalABV": 20.00,
+			"loading": false
 		};
 	}
 
-	submitRecipe(props) {
+	toggleLoadingStatus() {
+    	this.setState({
+      		loading: !this.state.loading
+    	});
+  	}
+
+	submitRecipe() {
+		let recipeCreator = this.props.currentUser;
 		let recipeName = this.state.recipeName;
 		let ingredients = this.state.ingredients;
 		let ingredientsList = [];
@@ -43,14 +52,17 @@ class RecipeCreator extends Component {
 			ingredientABV.push(this.state.ingredientABV[i]);
 			parts.push(this.state.parts[i]);
 		}
+		this.toggleLoadingStatus();
 		fetch(`${API_BASE_URL}/recipes/add`, {
 			method: 'POST',
 			headers: {
+				'Authorization': `Bearer ${this.props.authToken}`,
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				"recipeName": recipeName,
+				"recipeCreator": recipeCreator,
 				"ingredients": ingredients,
 				"ingredientsList": ingredientsList,
 				"ingredientABV": ingredientABV,
@@ -61,6 +73,7 @@ class RecipeCreator extends Component {
 		.then((res) => {
 			if (res.status === 200) {
 				alert('Recipe Created!')
+				this.toggleLoadingStatus();
 				this.setState({
 					"recipeName": "",
 					"ingredients": 2,
@@ -76,7 +89,10 @@ class RecipeCreator extends Component {
 				});
 			}
 		})
-		.catch((err) => alert(err));
+		.catch((err) => {
+			this.toggleLoadingStatus();
+			return alert(err);
+		});
 	}
 
 	changeRecipeName(value) {
@@ -299,6 +315,10 @@ class RecipeCreator extends Component {
 						onChangeParts={value => this.changeParts(value,14)} />
 				</ul>
 				<Button value="Submit" onClick={() => this.submitRecipe()} />
+
+				{this.state.loading ? 
+            		<LoadingPopup />
+            		: null}
 			</div>
 		);
 	}

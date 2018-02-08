@@ -10,6 +10,7 @@ import Main from './main';
 import ManageRecipes from './manage-recipes';
 import LandingNavBar from './components/landing-navbar';
 import MainNavBar from './components/main-navbar';
+import LoadingPopup from './components/loading';
 import {API_BASE_URL} from '../config';
 
 class App extends Component {
@@ -23,8 +24,15 @@ class App extends Component {
       signupFirstName: '',
       signupUsername: '',
       signupPassword: '',
-      signupPasswordConfirm: ''
+      signupPasswordConfirm: '',
+      loading: false
     }
+  }
+
+  toggleLoadingStatus() {
+    this.setState({
+      loading: !this.state.loading
+    });
   }
 
   changeUsernameInput(value) {
@@ -74,6 +82,7 @@ class App extends Component {
   }
 
   getAuthToken() {
+    this.toggleLoadingStatus();
     return fetch(`${API_BASE_URL}/auth/login`, {
                 method: 'POST',
                   headers: {
@@ -87,7 +96,10 @@ class App extends Component {
             }).then(res => res.json())
             .then(({authToken}) => this.storeAuthInfo(authToken))
             .then(() => this.clearInputFields())
-            .catch((err) => alert('incorrect username or password'));
+            .catch(() => {
+              this.toggleLoadingStatus();
+              alert('incorrect username or password');
+            });
   }
 
   storeAuthInfo(authToken) {
@@ -113,18 +125,24 @@ class App extends Component {
     let username = this.state.signupUsername.toLowerCase();
     let password = this.state.signupPassword;
     let passwordConfirm = this.state.signupPasswordConfirm;
+    if (!firstName) {
+      return alert('Error: first name required')
+    }
     if (password !== passwordConfirm) {
-      return alert('passwords do not match')
+      return alert('Error: passwords do not match')
     }
     if (username.length < 3 || username.length > 25) {
-      return alert('username must be between 3 and 25 characters')
+      return alert('Error: username must be between 3 and 25 characters')
     }
     if (password.length < 10 || password.length > 72) {
-      return alert('password must be between 10 and 72 characters')
+      return alert('Error: password must be between 10 and 72 characters')
     }
-    if (username !== username.trim() || password !== password.trim()) {
-      return alert('username and password cannot begin or end with whitespace')
+    if (firstName !== firstName.trim() ||
+        username !== username.trim() || 
+        password !== password.trim()) {
+      return alert('Error: inputs cannot begin or end with whitespace')
     }
+    this.toggleLoadingStatus();
     fetch(`${API_BASE_URL}/users`, {
       method: 'POST',
       headers: {
@@ -137,6 +155,12 @@ class App extends Component {
         "password": password
       })
     })
+    .then(res => {
+      if (!res.ok) {
+        throw Error('username already taken');
+      }
+      return res;
+    })
     .then(() => 
       this.setState({
         usernameInput: this.state.signupUsername,
@@ -145,7 +169,10 @@ class App extends Component {
     )
     .then(() => alert(`user ${this.state.usernameInput} successfully created`))
     .then(() => this.getAuthToken())
-    .catch(err => alert(err));
+    .catch(err => {
+      this.toggleLoadingStatus();
+      alert(err);
+    });
   }
 
   clearInputFields() {
@@ -155,7 +182,8 @@ class App extends Component {
       signupFirstName: '',
       signupUsername: '',
       signupPassword: '',
-      signupPasswordConfirm: ''
+      signupPasswordConfirm: '',
+      loading: false
     });
   }
 
@@ -198,11 +226,14 @@ class App extends Component {
           <Route exact path="/browse" 
             render={() => (this.state.currentUser) ?
                           (<BrowseRecipes
-                            authToken={this.state.authToken} />) :
+                            authToken={this.state.authToken}
+                            currentUser={this.state.currentUser} />) :
                           (<Redirect to="/" />)} />
           <Route exact path="/create" 
             render={() => (this.state.currentUser) ?
-                          (<CreateRecipe />) :
+                          (<CreateRecipe
+                            authToken={this.state.authToken}
+                            currentUser={this.state.currentUser} />) :
                           (<Redirect to="/" />)} />
           <Route exact path="/main" 
             render={() => (this.state.currentUser) ?
@@ -212,6 +243,10 @@ class App extends Component {
             render={() => (this.state.currentUser) ?
                           (<ManageRecipes />) :
                           (<Redirect to="/" />)} />
+
+          {this.state.loading ? 
+            <LoadingPopup />
+            : null}
         </main>
       </Router>
     );

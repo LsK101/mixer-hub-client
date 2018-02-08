@@ -6,16 +6,18 @@ class CreateRecipe extends Component {
   render() {
     return (
       <div className="create-recipe-container">
-            <section className="create-recipe-header-container row">
-                <div className="col-12">
-                    <h2 className="create-recipe-header">Create Recipe</h2>
-      			</div>
-      		</section>
+        <section className="create-recipe-header-container row">
+          <div className="col-12">
+            <h2 className="create-recipe-header">Create Recipe</h2>
+          </div>
+        </section>
 
-      		<section className="recipe-form-container row">
-      		<RecipeCreator />
-      		</section>
-      	</div>
+      	<section className="recipe-form-container row">
+      		<RecipeCreator
+            authToken={this.props.authToken} 
+            currentUser={this.props.currentUser} />
+      	</section>
+      </div>
     );
   }
 }

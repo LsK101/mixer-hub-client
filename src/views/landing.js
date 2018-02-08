@@ -58,8 +58,8 @@ class Landing extends Component {
       	</section>
 
       	<section id="signup-form" className="signup-container row">
-      		<div class="col-12">
-                        <h1 class="form-header">Start Mixing!</h1>
+      		<div className="col-12">
+                        <h1 className="form-header">Start Mixing!</h1>
 
                         <form className="signup-form" onSubmit={e => e.preventDefault()}>
                         <label htmlFor="signup-firstname">First Name</label>

@@ -3,13 +3,15 @@ import './browse-recipes.css';
 import SearchForm from './components/search-form';
 import RecipeList from './components/recipe-list';
 import {API_BASE_URL} from '../config.js';
+import LoadingPopup from './components/loading';
 
 class BrowseRecipes extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchQuery: '',
-      recipeData: []
+      recipeData: [],
+      loading: false
     };
 
   }
@@ -18,7 +20,14 @@ class BrowseRecipes extends Component {
     this.fetchRecipeDatabase();
   }
 
+  toggleLoadingStatus() {
+    this.setState({
+      loading: !this.state.loading
+    });
+  }
+
   fetchRecipeDatabase() {
+    this.toggleLoadingStatus();
     return fetch(`${API_BASE_URL}/recipes`, {
               method: 'GET',
               headers: {
@@ -29,11 +38,15 @@ class BrowseRecipes extends Component {
               return res.json();
             })
             .then(recipeData => {
+              this.toggleLoadingStatus();
               return this.setState({
                 "recipeData": recipeData
               });
             })
-            .catch(err => alert(err));
+            .catch(err => {
+              this.toggleLoadingStatus();
+              alert(err);
+            });
   }
 
   render() {
@@ -42,12 +55,15 @@ class BrowseRecipes extends Component {
       		<section className="recipe-search-form-container row">
       			<SearchForm onChange={value => this.setState({searchQuery: value})} />
       		</section>
-      		<section className="recipes-main-container">
+      		<section className="recipes-main-container row">
       			<div className="recipes-header col-12">
       				<h2>Recipes</h2>
       			</div>
       			 <RecipeList recipes={this.state.recipeData} query={this.state.searchQuery} />
       		</section>
+          {this.state.loading ? 
+            <LoadingPopup />
+            : null}
       </div>
     );
   }
