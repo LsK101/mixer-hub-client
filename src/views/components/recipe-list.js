@@ -231,20 +231,25 @@ class RecipeList extends Component {
 				<span className="user-rating-number">
 					{averageRecipeRating}
 				</span><br/>
-				<span className="user-rating-label">Your Rating: </span>
-					<ReactStars 
-						className={"rating-stars"}
-						count={5}
-						value={userRated}
-						color1={"black"}
-						color2={"red"}
-						size={25}
-						edit={true} 
-						half={true} 
-						onChange={(value) => this.rateRecipe(recipe.id,value)} />
-				<span className="user-rating-number">
-					{userRated}
-				</span>
+				{this.props.currentUser !== recipe.recipeCreator ?
+				<div>
+					<span className="user-rating-label">Your Rating: </span>
+						<ReactStars 
+							className={"rating-stars"}
+							count={5}
+							value={userRated}
+							color1={"black"}
+							color2={"red"}
+							size={25}
+							edit={true} 
+							half={true} 
+							onChange={(value) => this.rateRecipe(recipe.id,value)} />
+					<span className="user-rating-number">
+						{userRated}
+					</span> 
+				</div> :
+				null
+				}
 				</div>
 				}
 
