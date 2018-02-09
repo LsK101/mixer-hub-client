@@ -12,6 +12,9 @@
 .ingredient {
 	margin-right: 5px;
 	margin-bottom: 5px;
+	border: 1px	solid black;
+	background-color: #B8B8B8;
+	padding: 5px;
 }
 
 .ingredient-hidden {

@@ -1,3 +1,13 @@
-.creator-label {
+.creator-label,
+.user-rating-number {
 	font-style: italic;
+}
+
+.user-rating-label,
+.user-rating-number,
+.rating-stars {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0;
+	margin: 0;
 }
