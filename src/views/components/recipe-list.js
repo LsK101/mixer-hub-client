@@ -112,9 +112,26 @@ class RecipeList extends Component {
 	.map((recipe,index) => {
 		let userRated = this.checkIfUserRatedRecipe(recipe.userRatings);
 		let averageRecipeRating = this.getAverageRating(recipe.userRatings);
+		let userRecipe;
+		if (recipe.recipeCreator === this.props.currentUser) {
+			userRecipe = true;
+		}
+		else {
+			userRecipe = false;
+		}
+		let manageMode = this.props.manage;
 		return (
 			<li key={index} className="recipe-result col-12">
+				{userRecipe ?
+					<div>
+						<button className="edit-button">Edit</button>
+						<button className="delete-button">Delete</button> 
+					</div>:
+					null}
 				<strong>{recipe.recipeName}</strong><span> ({parseFloat(recipe.totalABV).toFixed(2)}% ABV)</span><br/>
+				{manageMode ?
+					null :
+				<div>
 				<span>Created by: </span><span className="creator-label">{recipe.recipeCreator}</span><br/>
 				<span className="user-rating-label">User Rating: </span>
 					<ReactStars 
@@ -143,6 +160,8 @@ class RecipeList extends Component {
 				<span className="user-rating-number">
 					{userRated}
 				</span>
+				</div>
+				}
 				<ul className="recipe-ingredient-list">
 				{recipe.ingredients.map((ingredient,index) => 
 					<li key={index} className="recipe-ingredient">{ingredient}</li>

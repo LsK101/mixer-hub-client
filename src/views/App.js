@@ -241,7 +241,9 @@ class App extends Component {
                           (<Redirect to="/" />)} />
           <Route exact path="/manage" 
             render={() => (this.state.currentUser) ?
-                          (<ManageRecipes />) :
+                          (<ManageRecipes
+                            authToken={this.state.authToken}
+                            currentUser={this.state.currentUser} />) :
                           (<Redirect to="/" />)} />
 
           {this.state.loading ? 
