@@ -129,7 +129,7 @@ class RecipeList extends Component {
 		const recipeTotalString = recipeNameLowerCase + " " + recipeCreatorLowerCase + " " + recipeIngredientsString;
 		if (this.props.manage) {
 			for (let i = 0; i < queryStrings.length; i++) {
-				if(!recipeCreatorLowerCase.includes(this.props.currentUser)) {
+				if(recipeCreatorLowerCase !== this.props.currentUser) {
 					return false;
 				}
 			}
