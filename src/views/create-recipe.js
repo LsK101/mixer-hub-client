@@ -15,7 +15,18 @@ class CreateRecipe extends Component {
       	<section className="recipe-form-container row">
       		<RecipeCreator
             authToken={this.props.authToken} 
-            currentUser={this.props.currentUser} />
+            currentUser={this.props.currentUser}
+            recipeName={""}
+            ingredients={2}
+            visibility={["ingredient","ingredient","ingredient-hidden",
+              "ingredient-hidden","ingredient-hidden","ingredient-hidden",
+              "ingredient-hidden","ingredient-hidden","ingredient-hidden",
+              "ingredient-hidden","ingredient-hidden","ingredient-hidden",
+              "ingredient-hidden","ingredient-hidden","ingredient-hidden"]}
+            ingredientsList={["","","","","","","","","","","","","","",""]}
+            ingredientABV={[40,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
+            parts={[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}
+            totalABV={20.00} />
       	</section>
       </div>
     );

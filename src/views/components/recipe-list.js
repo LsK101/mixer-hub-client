@@ -4,6 +4,7 @@ import {API_BASE_URL} from '../../config.js';
 import ReactStars from 'react-stars';
 import LoadingPopup from './loading';
 import ConfirmDelete from './confirm-delete';
+import RecipeEditor from './recipe-editor';
 
 class RecipeList extends Component {
 	constructor(props) {
@@ -12,7 +13,16 @@ class RecipeList extends Component {
 			recipeData: [],
 			loading: false,
 			recipeDeleteID: '',
-			deleteRecipeConfirmation: false
+			deleteRecipeConfirmation: false,
+			editing: false,
+			recipeToEdit: '',
+			recipeName: '',
+			ingredients: null,
+			visibility: [],
+			ingredientsList: [],
+			ingredientABV: [],
+			parts: [],
+			totalABV: null
 		}
 	}
 
@@ -53,6 +63,26 @@ class RecipeList extends Component {
     	this.setState({
       		deleteRecipeConfirmation: !this.state.deleteRecipeConfirmation
     	});
+  	}
+
+  	editRecipePopup(recipe) {
+  		this.setState({
+  			editing: true,
+  			recipeToEdit: recipe.id,
+  			recipeName: recipe.recipeName,
+  			ingredients: recipe.ingredients,
+  			visibility: recipe.visibility,
+  			ingredientsList: recipe.ingredientsList,
+  			ingredientABV: recipe.ingredientABV,
+  			parts: recipe.parts,
+  			totalABV: recipe.totalABV
+  		});
+  	}
+
+  	cancelEditRecipe() {
+  		this.setState({
+  			editing: false
+  		})
   	}
 
   	confirmDelete(recipeID) {
@@ -97,6 +127,13 @@ class RecipeList extends Component {
 		const recipeCreatorLowerCase = recipeCreator.toLowerCase();
 		const recipeIngredientsString = recipeIngredients.join(" ").toLowerCase().split(" ");
 		const recipeTotalString = recipeNameLowerCase + " " + recipeCreatorLowerCase + " " + recipeIngredientsString;
+		if (this.props.manage) {
+			for (let i = 0; i < queryStrings.length; i++) {
+				if(!recipeCreatorLowerCase.includes(this.props.currentUser)) {
+					return false;
+				}
+			}
+		}
 		for (let i = 0; i < queryStrings.length; i++) {
 			if (!recipeTotalString.includes(queryStrings[i])) {
 				return false;
@@ -156,7 +193,7 @@ class RecipeList extends Component {
 
 	render() {
 	const recipes = this.state.recipeData
-	.filter(recipe => this.checkStringEquality(this.props.query,recipe.recipeName,recipe.ingredients,recipe.recipeCreator))
+	.filter(recipe => this.checkStringEquality(this.props.query,recipe.recipeName,recipe.ingredientsString,recipe.recipeCreator))
 	.map((recipe,index) => {
 		let userRated = this.checkIfUserRatedRecipe(recipe.userRatings);
 		let averageRecipeRating = this.getAverageRating(recipe.userRatings);
@@ -172,7 +209,7 @@ class RecipeList extends Component {
 			<li key={index} className="recipe-result col-12">
 				{userRecipe && manageMode ?
 					<div>
-						<button className="edit-button">Edit</button>
+						<button className="edit-button" onClick={this.editRecipePopup.bind(this,recipe)}>Edit</button>
 						<button className="delete-button" onClick={this.confirmDelete.bind(this,recipe.id)}>Delete</button> 
 					</div>:
 					null}
@@ -210,8 +247,9 @@ class RecipeList extends Component {
 				</span>
 				</div>
 				}
+
 				<ul className="recipe-ingredient-list">
-				{recipe.ingredients.map((ingredient,index) => 
+				{recipe.ingredientsString.map((ingredient,index) => 
 					<li key={index} className="recipe-ingredient">{ingredient}</li>
 				)}
 				</ul>
@@ -223,14 +261,36 @@ class RecipeList extends Component {
 			<ul className="recipe-list row">
 				{recipes}
 			</ul>
+
 			{this.state.loading ? 
             <LoadingPopup />
             : null}
+
             {this.state.deleteRecipeConfirmation ? 
             <ConfirmDelete 
             	delete={this.deleteRecipe.bind(this)} 
             	cancel={this.toggleDeleteRecipeConfirmation.bind(this)} />
             : null}
+
+            {this.state.editing ?
+				<div className="recipe-editor-popup">
+					<div className="recipe-editor-popup-inner">
+            			<RecipeEditor 
+            				cancel={this.cancelEditRecipe.bind(this)}
+            				authToken={this.props.authToken}
+            				recipeID={this.state.recipeToEdit}
+            				currentUser={this.props.currentUser}
+            				recipeName={this.state.recipeName}
+            				ingredients={this.state.ingredients}
+            				visibility={this.state.visibility}
+            				ingredientsList={this.state.ingredientsList}
+            				ingredientABV={this.state.ingredientABV}
+            				parts={this.state.parts}
+            				totalABV={this.state.totalABV}
+            				reload={this.fetchRecipeDatabase.bind(this)} />
+            		</div>
+            	</div>
+            	: null}
 		</div>
 	);
 	}

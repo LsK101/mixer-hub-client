@@ -8,10 +8,11 @@ import Button from './button';
 import {API_BASE_URL} from '../../config.js'
 import LoadingPopup from './loading';
 
-class RecipeCreator extends Component {
+class RecipeEditor extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			"recipeID": this.props.recipeID,
 			"recipeName": this.props.recipeName,
 			"ingredients": this.props.ingredients,
 			"visibility": this.props.visibility,
@@ -30,6 +31,7 @@ class RecipeCreator extends Component {
   	}
 
 	submitRecipe() {
+		let recipeID = this.state.recipeID;
 		let recipeCreator = this.props.currentUser;
 		let recipeName = this.state.recipeName;
 		let ingredients = this.state.ingredients;
@@ -50,7 +52,7 @@ class RecipeCreator extends Component {
 			parts.push(this.state.parts[i]);
 		}
 		this.toggleLoadingStatus();
-		fetch(`${API_BASE_URL}/recipes/add`, {
+		fetch(`${API_BASE_URL}/recipes/edit`, {
 			method: 'POST',
 			headers: {
 				'Authorization': `Bearer ${this.props.authToken}`,
@@ -58,6 +60,7 @@ class RecipeCreator extends Component {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
+				"id": recipeID,
 				"recipeName": recipeName,
 				"recipeCreator": recipeCreator,
 				"ingredients": ingredients,
@@ -71,20 +74,9 @@ class RecipeCreator extends Component {
 		.then((res) => {
 			if (res.status === 200) {
 				this.toggleLoadingStatus();
-				this.setState({
-					"recipeName": "",
-					"ingredients": 2,
-					"visibility": ["ingredient","ingredient","ingredient-hidden",
-								"ingredient-hidden","ingredient-hidden","ingredient-hidden",
-								"ingredient-hidden","ingredient-hidden","ingredient-hidden",
-								"ingredient-hidden","ingredient-hidden","ingredient-hidden",
-								"ingredient-hidden","ingredient-hidden","ingredient-hidden"],
-					"ingredientsList": ["","","","","","","","","","","","","","",""],
-					"ingredientABV": [40,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-					"parts": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-					"totalABV": 20.00
-				});
-				return alert('Recipe Created!')
+				alert('Recipe Edited!')
+				this.props.cancel();
+				return this.props.reload();
 			}
 		})
 		.catch((err) => {
@@ -314,6 +306,8 @@ class RecipeCreator extends Component {
 				</ul>
 				<Button value="Submit" divClassName="recipe-submit-button-container" className="recipe-submit-button" 
 					onClick={() => this.submitRecipe()} />
+				<Button value="Cancel" divClassName="editing-cancel-button-container" className="editing-cancel-button" 
+					onClick={() => this.props.cancel()} />
 
 				{this.state.loading ? 
             		<LoadingPopup />
@@ -323,4 +317,4 @@ class RecipeCreator extends Component {
 	}
 }
 
-export default RecipeCreator;
+export default RecipeEditor;

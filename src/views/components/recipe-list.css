@@ -16,4 +16,29 @@
 .delete-button {
 	height: 25px;
 	width: 60px;
+	margin: 5px;
+}
+
+.recipe-editor-popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0,0,0, 0.7);
+}
+
+.recipe-editor-popup-inner {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 10%;
+  bottom: 10%;
+  padding: 10px;
+  margin: auto;
+  background: lightgray;
+  overflow-y: scroll;
 }

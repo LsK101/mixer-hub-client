@@ -20,3 +20,15 @@
 .ingredient-hidden {
 	display: none;
 }
+
+.recipe-submit-button,
+.editing-cancel-button {
+	height: 25px;
+	width: 60px;
+	margin: 5px;
+}
+
+.recipe-submit-button-container,
+.editing-cancel-button-container {
+	display: inline-block;
+}
