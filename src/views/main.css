@@ -10,3 +10,18 @@
 .critique-stats-section {
 	text-align: center;
 }
+
+.create-stats-section,
+.critique-stats-section {
+	padding: 5px;
+}
+
+.rating-stars-container,
+.average-recipe-rating-label,
+.average-recipe-rating-number,
+.rating-stars {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0;
+	margin: 0;
+}

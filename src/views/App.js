@@ -242,7 +242,9 @@ class App extends Component {
                           (<Redirect to="/" />)} />
           <Route exact path="/main" 
             render={() => (this.state.currentUser) ?
-                          (<Main />) :
+                          (<Main 
+                            authToken={this.state.authToken}
+                            currentUser={this.state.currentUser}/>) :
                           (<Redirect to="/" />)} />
           <Route exact path="/manage" 
             render={() => (this.state.currentUser) ?
