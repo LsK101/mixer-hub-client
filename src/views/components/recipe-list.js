@@ -3,13 +3,16 @@ import './recipe-list.css';
 import {API_BASE_URL} from '../../config.js';
 import ReactStars from 'react-stars';
 import LoadingPopup from './loading';
+import ConfirmDelete from './confirm-delete';
 
 class RecipeList extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			recipeData: [],
-			loading: false
+			loading: false,
+			recipeDeleteID: '',
+			deleteRecipeConfirmation: false
 		}
 	}
 
@@ -42,8 +45,50 @@ class RecipeList extends Component {
 
 	toggleLoadingStatus() {
     	this.setState({
-      	loading: !this.state.loading
+      		loading: !this.state.loading
     	});
+  	}
+
+  	toggleDeleteRecipeConfirmation() {
+    	this.setState({
+      		deleteRecipeConfirmation: !this.state.deleteRecipeConfirmation
+    	});
+  	}
+
+  	confirmDelete(recipeID) {
+  		this.setState({
+  			recipeDeleteID: recipeID
+  		});
+  		this.toggleDeleteRecipeConfirmation()
+  	}
+
+  	deleteRecipe() {
+  		this.toggleLoadingStatus();
+  		return fetch(`${API_BASE_URL}/recipes/delete`, {
+			method: 'POST',
+			headers: {
+				'Authorization': `Bearer ${this.props.authToken}`,
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				"id": this.state.recipeDeleteID,
+				"username": this.props.currentUser,
+			})
+		})
+		.then((res) => {
+			this.toggleLoadingStatus();
+			if (res.status === 200) {
+				alert('Recipe Deleted!')
+			}
+			this.toggleDeleteRecipeConfirmation()
+			this.fetchRecipeDatabase();
+		})
+		.catch((err) => {
+			this.toggleLoadingStatus();
+			this.toggleDeleteRecipeConfirmation()
+			return alert(err);
+		});
   	}
 
 	checkStringEquality(searchQuery, recipeName,recipeIngredients,recipeCreator) {
@@ -61,6 +106,7 @@ class RecipeList extends Component {
 	}
 
 	rateRecipe(recipeID,rating) {
+		this.toggleLoadingStatus();
 		return fetch(`${API_BASE_URL}/recipes/rate`, {
 			method: 'POST',
 			headers: {
@@ -75,12 +121,14 @@ class RecipeList extends Component {
 			})
 		})
 		.then((res) => {
+			this.toggleLoadingStatus();
+			this.fetchRecipeDatabase();
 			if (res.status === 200) {
 				alert('Recipe Rated!')
 			}
-			this.fetchRecipeDatabase();
 		})
 		.catch((err) => {
+			this.toggleLoadingStatus();
 			return alert(err);
 		});
 	}
@@ -122,10 +170,10 @@ class RecipeList extends Component {
 		let manageMode = this.props.manage;
 		return (
 			<li key={index} className="recipe-result col-12">
-				{userRecipe ?
+				{userRecipe && manageMode ?
 					<div>
 						<button className="edit-button">Edit</button>
-						<button className="delete-button">Delete</button> 
+						<button className="delete-button" onClick={this.confirmDelete.bind(this,recipe.id)}>Delete</button> 
 					</div>:
 					null}
 				<strong>{recipe.recipeName}</strong><span> ({parseFloat(recipe.totalABV).toFixed(2)}% ABV)</span><br/>
@@ -177,6 +225,11 @@ class RecipeList extends Component {
 			</ul>
 			{this.state.loading ? 
             <LoadingPopup />
+            : null}
+            {this.state.deleteRecipeConfirmation ? 
+            <ConfirmDelete 
+            	delete={this.deleteRecipe.bind(this)} 
+            	cancel={this.toggleDeleteRecipeConfirmation.bind(this)} />
             : null}
 		</div>
 	);

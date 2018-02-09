@@ -23,22 +23,22 @@ class ManageRecipes extends Component {
   	let manageSearchQuery = this.props.currentUser + ' ' + this.state.searchQuery
     return (
       <div className="browse-container">
-      		<section className="recipe-search-form-container row">
-      			<SearchForm onChange={value => this.setState({searchQuery: value})} />
-      		</section>
-      		<section className="recipes-main-container row">
-      			<div className="recipes-header col-12">
-      				<h2>Your Recipes</h2>
-      			</div>
-      			 <RecipeList 
+      	<section className="recipe-search-form-container row">
+      		<SearchForm onChange={value => this.setState({searchQuery: value})} />
+      	</section>
+      	<section className="recipes-main-container row">
+      		<div className="recipes-header col-12">
+      			<h2>Your Recipes</h2>
+      		</div>
+      		<RecipeList 
               query={manageSearchQuery}
               authToken={this.props.authToken}
               currentUser={this.props.currentUser}
               manage={true} />
       		</section>
-          {this.state.loading ? 
-            <LoadingPopup />
-            : null}
+          	{this.state.loading ? 
+            	<LoadingPopup />
+            	: null}
       </div>
     );
   }
