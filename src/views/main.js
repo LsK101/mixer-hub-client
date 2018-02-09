@@ -122,9 +122,14 @@ class Main extends Component {
               </div>
       		  </section>
 
+            <section className="stats-section-header row">
+              <div className="col-12">
+                <h2 className="dashboard-header">Create</h2>
+              </div>
+            </section>
+
       		  <section className="create-stats-section row">
               <div className="col-6">
-                <h2>Create</h2>
                 <span>*create section graphic*, pie chart with ratings or ABVs?</span>
               </div>
               <div className="col-6">
@@ -153,9 +158,14 @@ class Main extends Component {
               </div>
       		  </section>
 
+            <section className="stats-section-header row">
+              <div className="col-12">
+                <h2 className="dashboard-header">Discover / Critique (coming soon!)</h2>
+              </div>
+            </section>
+
       		  <section className="critique-stats-section row">
               <div className="col-6">
-                <h2>Discover / Critique (coming soon!)</h2>
                 <span>*critique section graphic</span>
               </div>
               <div className="col-6">
