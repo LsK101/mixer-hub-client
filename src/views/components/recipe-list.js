@@ -230,6 +230,9 @@ class RecipeList extends Component {
 						half={true} />
 				<span className="user-rating-number">
 					{averageRecipeRating}
+					{recipe.userRatings.length > 0 ?
+						`(${recipe.userRatings.length})` :
+						null}
 				</span><br/>
 				{this.props.currentUser !== recipe.recipeCreator ?
 				<div>
