@@ -217,7 +217,7 @@ class RecipeList extends Component {
 				{manageMode ?
 					null :
 				<div>
-				<span>Created by: </span><span className="creator-label">{recipe.recipeCreator}</span><br/>
+				<span>Mixed by: </span><span className="creator-label">{recipe.recipeCreator}</span><br/>
 				<span className="user-rating-label">User Rating: </span>
 					<ReactStars 
 						className={"rating-stars"}
