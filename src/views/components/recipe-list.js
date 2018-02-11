@@ -160,9 +160,6 @@ class RecipeList extends Component {
 		.then((res) => {
 			this.toggleLoadingStatus();
 			this.fetchRecipeDatabase();
-			if (res.status === 200) {
-				alert('Recipe Rated!')
-			}
 		})
 		.catch((err) => {
 			this.toggleLoadingStatus();
@@ -227,11 +224,11 @@ class RecipeList extends Component {
 						color2={"red"}
 						size={25}
 						edit={false} 
-						half={true} />
+						half={false} />
 				<span className="user-rating-number">
 					{averageRecipeRating}
 					{recipe.userRatings.length > 0 ?
-						`(${recipe.userRatings.length})` :
+						` (${recipe.userRatings.length})` :
 						null}
 				</span><br/>
 				{this.props.currentUser !== recipe.recipeCreator ?
@@ -245,7 +242,7 @@ class RecipeList extends Component {
 							color2={"red"}
 							size={25}
 							edit={true} 
-							half={true} 
+							half={false} 
 							onChange={(value) => this.rateRecipe(recipe.id,value)} />
 					<span className="user-rating-number">
 						{userRated}
