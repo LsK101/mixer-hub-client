@@ -38,6 +38,12 @@ class RecipeCreator extends Component {
 		let ingredientABV = [];
 		let parts = [];
 		let totalABV = this.state.totalABV;
+		if (this.props.currentUser === 'demo') {
+			return this.props.toggleSignup();
+		}
+		if (recipeName === '') {
+			return alert('recipe name required');
+		}
 		if (ingredients < 2) {
 			return alert('must be at least 2 ingredients');
 		}

@@ -26,7 +26,8 @@ class CreateRecipe extends Component {
             ingredientsList={["","","","","","","","","","","","","","",""]}
             ingredientABV={[40,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}
             parts={[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}
-            totalABV={20.00} />
+            totalABV={20.00}
+            toggleSignup={this.props.toggleSignup.bind(this)} />
       	</section>
       </div>
     );

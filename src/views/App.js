@@ -12,6 +12,7 @@ import LandingNavBar from './components/landing-navbar';
 import MainNavBar from './components/main-navbar';
 import LoadingPopup from './components/loading';
 import {API_BASE_URL} from '../config';
+import SignupPopup from './components/signup-popup';
 
 class App extends Component {
   constructor() {
@@ -25,7 +26,8 @@ class App extends Component {
       signupUsername: '',
       signupPassword: '',
       signupPasswordConfirm: '',
-      loading: false
+      loading: false,
+      signupPopup: false
     }
   }
 
@@ -37,6 +39,20 @@ class App extends Component {
     this.setState({
       loading: !this.state.loading
     });
+  }
+
+  toggleSignupPopupOn() {
+    this.setState({
+      signupPopup: true
+    });
+    this.clearInputFields();
+  }
+
+  toggleSignupPopupOff() {
+    this.setState({
+      signupPopup: false
+    });
+    this.clearInputFields();
   }
 
   changeUsernameInput(value) {
@@ -83,6 +99,27 @@ class App extends Component {
     this.setState({
       "signupPasswordConfirm": changeValue
     });
+  }
+
+  loginWithDemoAccount() {
+    this.toggleLoadingStatus();
+    return fetch(`${API_BASE_URL}/auth/login`, {
+                method: 'POST',
+                  headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  "username": 'demo',
+                  "password": 'demopassword',
+                })
+            }).then(res => res.json())
+            .then(({authToken}) => this.storeAuthInfo(authToken))
+            .then(() => this.clearInputFields())
+            .catch(() => {
+              this.toggleLoadingStatus();
+              alert('incorrect username or password');
+            });
   }
 
   getAuthToken() {
@@ -171,8 +208,12 @@ class App extends Component {
         passwordInput: this.state.signupPassword
       })
     )
-    .then(() => alert(`user ${this.state.usernameInput} successfully created`))
     .then(() => this.getAuthToken())
+    .then(() => {
+      this.setState({
+        signupPopup: false
+      });
+    })
     .catch(err => {
       this.toggleLoadingStatus();
       alert(err);
@@ -211,7 +252,8 @@ class App extends Component {
                             onChangeUsername={value => this.changeUsernameInput(value)} 
                             passwordInput={this.state.passwordInput}
                             onChangePassword={value => this.changePasswordInput(value)}
-                            onClick={this.getAuthToken.bind(this)} />) } />
+                            onClick={this.getAuthToken.bind(this)}
+                            demo={this.loginWithDemoAccount.bind(this)} />) } />
           <Route exact path="/" 
             render={() => (<Landing 
                             firstName={this.state.signupFirstName}
@@ -226,19 +268,22 @@ class App extends Component {
 
           {["/browse","/create","/main","/manage"].map((path,index) =>
             <Route key={index} exact path={path} 
-            render={() => <MainNavBar logout={this.logout.bind(this)} />} />
+            render={() => <MainNavBar logout={this.logout.bind(this)} 
+                            currentUser={this.state.currentUser} />} />
           )}
           <Route exact path="/browse" 
             render={() => (this.state.currentUser) ?
                           (<BrowseRecipes
                             authToken={this.state.authToken}
-                            currentUser={this.state.currentUser} />) :
+                            currentUser={this.state.currentUser}
+                            toggleSignup={this.toggleSignupPopupOn.bind(this)} />) :
                           (<Redirect to="/" />)} />
           <Route exact path="/create" 
             render={() => (this.state.currentUser) ?
                           (<CreateRecipe
                             authToken={this.state.authToken}
-                            currentUser={this.state.currentUser} />) :
+                            currentUser={this.state.currentUser}
+                            toggleSignup={this.toggleSignupPopupOn.bind(this)} />) :
                           (<Redirect to="/" />)} />
           <Route exact path="/main" 
             render={() => (this.state.currentUser) ?
@@ -252,6 +297,19 @@ class App extends Component {
                             authToken={this.state.authToken}
                             currentUser={this.state.currentUser} />) :
                           (<Redirect to="/" />)} />
+          {this.state.signupPopup ? 
+            <SignupPopup
+              firstName={this.state.signupFirstName}
+              onChangeFirstName={value => this.changeSignupFirstNameInput(value)}
+              username={this.state.signupUsername}
+              onChangeUsername={value => this.changeSignupUsernameInput(value)}
+              password={this.state.signupPassword}
+              onChangePassword={value => this.changeSignupPasswordInput(value)} 
+              passwordConfirm={this.state.signupPasswordConfirm}
+              onChangePasswordConfirm={value => this.changeSignupPasswordConfirmInput(value)}
+              onClick={this.sendSignupCredentials.bind(this)}
+              cancelSignup={this.toggleSignupPopupOff.bind(this)} />
+            : null}
 
           {this.state.loading ? 
             <LoadingPopup />

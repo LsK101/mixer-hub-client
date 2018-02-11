@@ -31,6 +31,7 @@ class LandingNavBar extends Component {
       		<div className="login-button-container col-6">
       			<button onClick={this.toggleLoginPopup.bind(this)}>Log In</button>
             <button className="signup-button" onClick={this.scrollToSignupForm.bind(this)}>Sign Up</button>
+            <button className="signup-button" onClick={this.props.demo}>Demo</button>
       		</div>
           {this.state.showLogin ? 
             <LoginPopup closePopup={this.toggleLoginPopup.bind(this)} 

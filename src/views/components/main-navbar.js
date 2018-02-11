@@ -11,8 +11,12 @@ class MainNavBar extends Component {
               <li><Link to="/main">Dashboard</Link></li>
               <li><Link to="/create">Create Recipe</Link></li>
               <li><Link to="/browse">Browse Recipes</Link></li>
-              <li><Link to="/manage">Manage Recipes</Link></li>
-              <li><Link to="/" onClick={this.props.logout}>Log Out</Link></li>
+              {this.props.currentUser === 'demo' ?
+              null :
+              <li><Link to="/manage">Manage Recipes</Link></li>}
+              {this.props.currentUser === 'demo' ?
+              <li><Link to="/" onClick={this.props.logout}>Back To Home</Link></li> :
+              <li><Link to="/" onClick={this.props.logout}>Log Out</Link></li>}
             </ul>
       		</div>
       	</div>

@@ -33,7 +33,8 @@ class BrowseRecipes extends Component {
               query={this.state.searchQuery}
               authToken={this.props.authToken}
               currentUser={this.props.currentUser}
-              manage={false} />
+              manage={false}
+              toggleSignup={this.props.toggleSignup} />
       		</section>
           {this.state.loading ? 
             <LoadingPopup />

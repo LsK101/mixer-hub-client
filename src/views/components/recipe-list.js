@@ -108,9 +108,6 @@ class RecipeList extends Component {
 		})
 		.then((res) => {
 			this.toggleLoadingStatus();
-			if (res.status === 200) {
-				alert('Recipe Deleted!')
-			}
 			this.toggleDeleteRecipeConfirmation()
 			this.fetchRecipeDatabase();
 		})
@@ -143,6 +140,9 @@ class RecipeList extends Component {
 	}
 
 	rateRecipe(recipeID,rating) {
+		if (this.props.currentUser === 'demo') {
+			return this.props.toggleSignup();
+		}
 		this.toggleLoadingStatus();
 		return fetch(`${API_BASE_URL}/recipes/rate`, {
 			method: 'POST',
