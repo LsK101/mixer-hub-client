@@ -135,9 +135,9 @@ class Main extends Component {
               <div className="col-6">
       				  <span>Recipes Created: </span>{this.state.recipesCreated}
       				  <br/>
-      				  <span className="average-recipe-rating-label">Average Recipe Rating: </span>
+      				  <span className="average-recipe-rating-label">Average Recipe Rating:</span>
                 {isNaN(this.state.averageUserRecipeRating) ?
-                  `No Recipes Rated` :
+                  ` No Recipes Rated` :
                   <div className="rating-stars-container">
                     <ReactStars 
                       className={"rating-stars"}
@@ -151,10 +151,10 @@ class Main extends Component {
                     <span className="average-recipe-rating-number">{this.state.averageUserRecipeRating}</span>
                   </div> }
                 <br/>
-                <span>Average Recipe ABV: </span>
+                <span>Average Recipe ABV:</span>
                 {isNaN(this.state.averageUserRecipeABV) ?
-                  `No Recipes Created` :
-                  `${this.state.averageUserRecipeABV}%`}
+                  ` No Recipes Created` :
+                  ` ${this.state.averageUserRecipeABV}%`}
               </div>
       		  </section>
 

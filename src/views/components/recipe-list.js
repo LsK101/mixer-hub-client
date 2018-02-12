@@ -244,9 +244,10 @@ class RecipeList extends Component {
 							edit={true} 
 							half={false} 
 							onChange={(value) => this.rateRecipe(recipe.id,value)} />
-					<span className="user-rating-number">
-						{userRated}
-					</span> 
+					<button type="button" className="clear-rating-button" 
+						onClick={this.rateRecipe.bind(this,recipe.id,null)}>
+						Clear
+					</button>
 				</div> :
 				null
 				}
