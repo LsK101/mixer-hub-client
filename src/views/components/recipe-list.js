@@ -22,7 +22,8 @@ class RecipeList extends Component {
 			ingredientsList: [],
 			ingredientABV: [],
 			parts: [],
-			totalABV: null
+			totalABV: null,
+			sort: 'alpha'
 		}
 	}
 
@@ -191,6 +192,14 @@ class RecipeList extends Component {
 	render() {
 	const recipes = this.state.recipeData
 	.filter(recipe => this.checkStringEquality(this.props.query,recipe.recipeName,recipe.ingredientsString,recipe.recipeCreator))
+	.sort((a,b) => {
+		if (this.state.sort === 'alpha') {
+			return (a.recipeName > b.recipeName);
+		}
+		else {
+			return 0;
+		}
+	})		
 	.map((recipe,index) => {
 		let userRated = this.checkIfUserRatedRecipe(recipe.userRatings);
 		let averageRecipeRating = this.getAverageRating(recipe.userRatings);
@@ -221,7 +230,7 @@ class RecipeList extends Component {
 						count={5}
 						value={averageRecipeRating}
 						color1={"black"}
-						color2={"red"}
+						color2={"#CA0000"}
 						size={25}
 						edit={false} 
 						half={false} />
@@ -239,15 +248,17 @@ class RecipeList extends Component {
 							count={5}
 							value={userRated}
 							color1={"black"}
-							color2={"red"}
+							color2={"#CA0000"}
 							size={25}
 							edit={true} 
 							half={false} 
 							onChange={(value) => this.rateRecipe(recipe.id,value)} />
+					{userRated > 0 ?
 					<button type="button" className="clear-rating-button" 
 						onClick={this.rateRecipe.bind(this,recipe.id,null)}>
 						Clear
-					</button>
+					</button> :
+					<span className="user-rating-number">No Rating</span>}
 				</div> :
 				null
 				}

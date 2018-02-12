@@ -1,6 +1,4 @@
-.stats-section-header,
-.create-stats-section,
-.critique-stats-section {
+.stats-section-header {
 	background-color: lightgray;
 }
 
@@ -12,8 +10,11 @@
 }
 
 .create-stats-section,
-.critique-stats-section {
-	padding: 5px;
+.critique-stats-section,
+.create-section-header,
+.discover-section-header {
+	background-color: #B8B8B8;
+	padding: 15px;
 }
 
 .rating-stars-container,
@@ -24,4 +25,40 @@
 	vertical-align: middle;
 	padding: 0;
 	margin: 0;
+}
+
+.pie-chart-container {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px;
+}
+
+.pie-chart-key {
+	display: inline-block;
+	border: 1px	solid black;
+	padding: 2px;
+	margin-right: 3px;
+	margin-top: 3px;
+	color: black;
+}
+
+.red {
+	background-color: #B30000;
+}
+
+.orange {
+	background-color: #CC6600;
+}
+
+.yellow {
+	background-color: #C1CC00;
+}
+
+.green {
+	background-color: #00CC0B;
+}
+
+.blue {
+	background-color: #0080CC;
 }

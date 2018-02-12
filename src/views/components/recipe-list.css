@@ -39,7 +39,7 @@
   bottom: 10%;
   padding: 10px;
   margin: auto;
-  background: lightgray;
+  background-color: lightgray;
   overflow-y: scroll;
 }
 
