@@ -14,13 +14,18 @@
   position: absolute;
   left: 10%;
   right: 10%;
-  top: 25%;
-  bottom: 25%;
+  top: 15%;
+  bottom: 15%;
   margin: auto;
   background: lightgray;
   text-align: center;
+  overflow-y: scroll;
 }
 
 .signup-cancel-button {
   margin-left: 10px;
+}
+
+.signup-form-header {
+  font-size: 25px;
 }

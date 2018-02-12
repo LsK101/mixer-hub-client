@@ -21,7 +21,7 @@ class LoginPopup extends Component {
 			     </div>
           <div className="login-form-button-container">
 				    <button type="submit" className="login-form-button" onClick={this.props.onClick}>Log In</button>
-        		<button className="cancel-button" onClick={this.props.closePopup}>Cancel</button>
+        		<button type="button" className="cancel-button" onClick={this.props.closePopup}>Cancel</button>
           </div>
           </form>
         </div>

@@ -31,10 +31,6 @@ class App extends Component {
     }
   }
 
-  resetWindow() {
-    return window.scrollTo(0,0)
-  }
-
   toggleLoadingStatus() {
     this.setState({
       loading: !this.state.loading
@@ -240,7 +236,6 @@ class App extends Component {
   }
 
   render() {
-    this.resetWindow();
     return (
       <Router>
         <main>

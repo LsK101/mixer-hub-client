@@ -7,7 +7,7 @@ class SignupPopup extends Component {
     return (
       <div className="signup-popup">
         <div className="signup-popup-inner">
-              <h1 className="form-header">Start Mixing!</h1>
+              <h1 className="signup-form-header">Start Mixing!</h1>
 
               <form className="signup-form" onSubmit={e => e.preventDefault()}>
               <label htmlFor="signup-firstname">First Name</label>
@@ -35,7 +35,7 @@ class SignupPopup extends Component {
                 onChange={e => this.props.onChangePasswordConfirm(e.target.value)} />
               <br/><br/>
               <button type="submit" className="form-signup-button" onClick={this.props.onClick.bind(this)}>Sign Up</button>
-              <button className="signup-cancel-button" onClick={this.props.cancelSignup}>Cancel</button>
+              <button type="button" className="signup-cancel-button" onClick={this.props.cancelSignup}>Cancel</button>
               </form>
         </div>
       </div>
