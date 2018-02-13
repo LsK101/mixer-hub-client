@@ -191,8 +191,9 @@ class RecipeList extends Component {
 	}
 
 	changeSortMethod(event) {
+		let changeValue = String(event.target.value);
 		this.setState({
-			sort: event.target.value
+			sort: changeValue
 		});
 	}
 
