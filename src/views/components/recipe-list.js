@@ -294,7 +294,7 @@ class RecipeList extends Component {
 						color2={"#CA0000"}
 						size={25}
 						edit={false} 
-						half={false} />
+						half={true} />
 				<span className="user-rating-number">
 					{recipe.averageRecipeRating}
 					{recipe.userRatings.length > 0 ?
