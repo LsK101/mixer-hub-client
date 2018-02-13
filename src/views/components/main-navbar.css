@@ -1,6 +1,7 @@
 .main-navbar-container {
 	background-color: gray;
 	width: 100%;
+	position: fixed;
 }
 
 .nav-links {

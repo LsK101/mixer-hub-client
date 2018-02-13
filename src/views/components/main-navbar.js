@@ -5,7 +5,7 @@ import './main-navbar.css';
 class MainNavBar extends Component {
   render() {
     return (
-      	<div className="main-navbar-container row">
+      	<div className="main-navbar-container">
       		<div className="nav-links-container col-12">
       			<ul className="nav-links">
               <li><Link to="/main">Dashboard</Link></li>

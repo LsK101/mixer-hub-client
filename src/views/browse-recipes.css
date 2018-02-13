@@ -1,3 +1,7 @@
+.recipe-search-form-container {
+	padding-top: 70px;
+}
+
 .recipe-search-form-container,
 .recipes-main-container {
 	background-color: lightgray;
@@ -6,10 +10,6 @@
 .recipe-search-form-container,
 .recipes-header {
 	text-align: center;
-}
-
-.recipe-search-form-container {
-	padding-top: 20px;
 }
 
 .search-form {

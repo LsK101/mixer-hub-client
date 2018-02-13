@@ -1,6 +1,7 @@
 .landing-navbar-container {
 	background-color: gray;
 	width: 100%;
+	position: fixed;
 }
 
 .login-button-container {

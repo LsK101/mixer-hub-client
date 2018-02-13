@@ -23,7 +23,7 @@ class LandingNavBar extends Component {
 
   render() {
     return (
-      	<div className="landing-navbar-container row">
+      	<div className="landing-navbar-container">
       		<div className="navbar-header-container col-6">
       			<span>MixerHub</span>
       		</div>

@@ -1,3 +1,7 @@
+.create-recipe-header-container {
+	padding-top: 50px;
+}
+
 .create-recipe-header-container,
 .recipe-form-container {
 	background-color: lightgray;
