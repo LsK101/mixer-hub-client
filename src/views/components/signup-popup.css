@@ -8,6 +8,7 @@
   bottom: 0;
   margin: auto;
   background-color: rgba(0,0,0, 0.7);
+  z-index: 2;
 }
 
 .signup-popup-inner {
@@ -20,6 +21,7 @@
   background: lightgray;
   text-align: center;
   overflow-y: scroll;
+  z-index: 3;
 }
 
 .signup-cancel-button {
