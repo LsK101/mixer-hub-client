@@ -24,7 +24,7 @@ class RecipeList extends Component {
 			ingredientABV: [],
 			parts: [],
 			totalABV: null,
-			sort: 'Alphabetical A-Z'
+			sort: 'Recipe Name A-Z'
 		}
 	}
 
@@ -190,6 +190,12 @@ class RecipeList extends Component {
 		return 'No Rating';
 	}
 
+	changeSortMethod(event) {
+		this.setState({
+			sort: event.target.value
+		});
+	}
+
 	render() {
 	const recipes = this.state.recipeData
 	.filter(recipe => this.checkStringEquality(this.props.query,recipe.recipeName,recipe.ingredientsString,recipe.recipeCreator))
@@ -200,11 +206,17 @@ class RecipeList extends Component {
 		return object;
 	})
 	.sort((a,b) => {
-		if (this.state.sort === 'Alphabetical A-Z') {
+		if (this.state.sort === 'Recipe Name A-Z') {
 			return (a.recipeName > b.recipeName);
 		}
-		if (this.state.sort === 'Alphabetical Z-A') {
+		if (this.state.sort === 'Recipe Name Z-A') {
 			return (a.recipeName < b.recipeName);
+		}
+		if (this.state.sort === 'Recipe Mixer A-Z') {
+			return (a.recipeCreator > b.recipeCreator);
+		}
+		if (this.state.sort === 'Recipe Mixer Z-A') {
+			return (a.recipeCreator < b.recipeCreator);
 		}
 		if (this.state.sort === 'Highest Rated') {
 			return (a.averageRecipeRating < b.averageRecipeRating)
@@ -217,6 +229,12 @@ class RecipeList extends Component {
 		}
 		if (this.state.sort === 'Lowest ABV') {
 			return (a.totalABV > b.totalABV)
+		}
+		if (this.state.sort === 'Most Ingredients') {
+			return (a.ingredients < b.ingredients)
+		}
+		if (this.state.sort === 'Least Ingredients') {
+			return (a.ingredients > b.ingredients)
 		}
 		else {
 			return 0
@@ -296,6 +314,21 @@ class RecipeList extends Component {
 	});
 	return (
 		<div>
+		<strong>Sort: </strong>
+		<select className="sort-dropbox" 
+			onChange={this.changeSortMethod.bind(this)}
+			value={this.state.sort}>
+			<option value='Recipe Name A-Z'>Recipe Name A-Z</option>
+			<option value='Recipe Name Z-A'>Recipe Name Z-A</option>
+			<option value='Recipe Mixer A-Z'>Recipe Mixer A-Z</option>
+			<option value='Recipe Mixer Z-A'>Recipe Mixer Z-A</option>
+			<option value='Highest Rated'>Highest Rated</option>
+			<option value='Lowest Rated'>Lowest Rated</option>
+			<option value='Highest ABV'>Highest ABV</option>
+			<option value='Lowest ABV'>Lowest ABV</option>
+			<option value='Most Ingredients'>Most Ingredients</option>
+			<option value='Least Ingredients'>Least Ingredients</option>
+		</select>
 			<ul className="recipe-list row">
 				{recipes}
 			</ul>
