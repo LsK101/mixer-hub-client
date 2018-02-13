@@ -31,6 +31,26 @@ class App extends Component {
     }
   }
 
+  componentWillMount() {
+    let localAuthToken = localStorage.getItem('authToken');
+    let localUsername = localStorage.getItem('currentUser');
+    this.setState({
+      authToken: localAuthToken,
+      currentUser: localUsername
+    });
+    if (localAuthToken !== null) {
+      return fetch(`${API_BASE_URL}/auth/refresh`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localAuthToken}`
+        }
+      })
+      .then(res => res.json())
+      .then(({authToken}) => this.storeAuthInfo(authToken))
+      .catch(err => console.log(err));
+    }
+  }
+
   toggleLoadingStatus() {
     this.setState({
       loading: !this.state.loading
@@ -142,7 +162,7 @@ class App extends Component {
   storeAuthInfo(authToken) {
     const decodedToken = jwtDecode(authToken);
     this.setAuthToken(authToken);
-    this.authSuccess(decodedToken.user);
+    this.authSuccess(decodedToken.user,authToken);
   }
 
   setAuthToken(authToken) {
@@ -151,10 +171,14 @@ class App extends Component {
     });
   }
 
-  authSuccess(user) {
+  authSuccess(user,authToken) {
     this.setState({
       currentUser: user.username
-    })
+    });
+    if (user.username !== 'demo') {
+      localStorage.setItem('authToken',authToken);
+      localStorage.setItem('currentUser',user.username);
+    }
   }
 
   sendSignupCredentials() {
@@ -233,6 +257,8 @@ class App extends Component {
       authToken: null,
       currentUser: null
     });
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
   }
 
   render() {
