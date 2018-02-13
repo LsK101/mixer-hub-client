@@ -342,7 +342,7 @@ class RecipeList extends Component {
 	});
 	return (
 		<div>
-		<strong>Sort: </strong>
+		<strong>Sort By: </strong>
 		<select className="sort-dropbox" 
 			onChange={this.changeSortMethod.bind(this)}
 			value={this.state.sort}>
