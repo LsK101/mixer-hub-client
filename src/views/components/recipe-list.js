@@ -191,9 +191,11 @@ class RecipeList extends Component {
 	}
 
 	changeSortMethod(event) {
+		this.toggleLoadingStatus();
 		this.setState({
 			sort: event.target.value
 		});
+		return this.toggleLoadingStatus();
 	}
 
 	render() {
