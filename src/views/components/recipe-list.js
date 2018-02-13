@@ -219,10 +219,38 @@ class RecipeList extends Component {
 			return (a.recipeCreator < b.recipeCreator);
 		}
 		if (this.state.sort === 'Highest Rated') {
-			return (a.averageRecipeRating < b.averageRecipeRating)
+			let ratingA;
+			let ratingB;
+			if (a.averageRecipeRating === 'No Rating') {
+				ratingA = 0;
+			}
+			else {
+				ratingA = a.averageRecipeRating;
+			}
+			if (b.averageRecipeRating === 'No Rating') {
+				ratingB = 0;
+			}
+			else {
+				ratingB = b.averageRecipeRating;
+			}
+			return (ratingA < ratingB)
 		}
 		if (this.state.sort === 'Lowest Rated') {
-			return (a.averageRecipeRating > b.averageRecipeRating)
+			let ratingA;
+			let ratingB;
+			if (a.averageRecipeRating === 'No Rating') {
+				ratingA = 0;
+			}
+			else {
+				ratingA = a.averageRecipeRating;
+			}
+			if (b.averageRecipeRating === 'No Rating') {
+				ratingB = 0;
+			}
+			else {
+				ratingB = b.averageRecipeRating;
+			}
+			return (ratingA > ratingB)
 		}
 		if (this.state.sort === 'Highest ABV') {
 			return (a.totalABV < b.totalABV)
