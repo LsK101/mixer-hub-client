@@ -3,7 +3,7 @@ import './main.css';
 import {API_BASE_URL} from '../config.js';
 import LoadingPopup from './components/loading';
 import ReactStars from 'react-stars';
-import PieChart from 'react-simple-pie-chart';
+import DonutChart from 'react-svg-donut-chart';
 
 class Main extends Component {
   constructor(props) {
@@ -139,7 +139,6 @@ class Main extends Component {
           return array.username === this.props.currentUser;
         })
         .rating;
-        console.log(userRating);
       if (userRating === 1) {
         this.setState({
           givenOne: (this.state.givenOne + 1),
@@ -290,6 +289,23 @@ class Main extends Component {
   }
 
   render() {
+    let createPieData = [
+      {value: this.state.ratedLessThanTwo, stroke: '#CC1313', strokeWidth: 10},
+      {value: this.state.ratedLessThanThree, stroke: '#CC7013', strokeWidth: 10},
+      {value: this.state.ratedLessThanFour, stroke: '#CCCC13', strokeWidth: 10},
+      {value: this.state.ratedLessThanFive, stroke: '#70CC13', strokeWidth: 10},
+      {value: this.state.ratedFive, stroke: '#13CC70', strokeWidth: 10}
+    ];
+    let discoverPieData = [
+      {value: this.state.givenOne, stroke: '#CC1313', strokeWidth: 10},
+      {value: this.state.givenTwo, stroke: '#CC7013', strokeWidth: 10},
+      {value: this.state.givenThree, stroke: '#CCCC13', strokeWidth: 10},
+      {value: this.state.givenFour, stroke: '#70CC13', strokeWidth: 10},
+      {value: this.state.givenFive, stroke: '#13CC70', strokeWidth: 10}
+    ];
+    const nullPie = [
+      {value: 1, stroke: '#000000', strokeWidth: 10}
+    ];
     return (
           <div className="dashboard-container">
             <section className="stats-section-header row">
@@ -309,30 +325,11 @@ class Main extends Component {
                 <div className="pie-chart-container">
                   <strong>Average Recipe Rating</strong>
                   {this.state.recipesCreatedAndRated >= 1 ?
-                  <PieChart
-                    slices={[
-                      {
-                        color: '#B30000',
-                        value: this.state.ratedLessThanTwo
-                      },
-                      {
-                        color: '#CC6600',
-                        value: this.state.ratedLessThanThree
-                      },
-                      {
-                        color: '#C1CC00',
-                        value: this.state.ratedLessThanFour
-                      },
-                      {
-                        color: '#00CC0B',
-                        value: this.state.ratedLessThanFive
-                      },
-                      {
-                        color: '#0080CC',
-                        value: this.state.ratedFive
-                      }
-                    ]} /> :
-                    <PieChart slices={[{color: 'black', value: 1}]} /> }
+                    <DonutChart
+                      data={createPieData} /> :
+                    <DonutChart
+                      data={nullPie} />
+                  }
                   <div className="pie-chart-key red">
                     <strong className="pie-chart-key-label">1.00 - 1.99</strong>
                   </div>
@@ -387,30 +384,11 @@ class Main extends Component {
                 <div className="pie-chart-container">
                   <strong>Ratings Given To Other Recipes</strong>
                   {this.state.recipesRated.length > 0 ?
-                  <PieChart
-                    slices={[
-                      {
-                        color: '#B30000',
-                        value: this.state.givenOne
-                      },
-                      {
-                        color: '#CC6600',
-                        value: this.state.givenTwo
-                      },
-                      {
-                        color: '#C1CC00',
-                        value: this.state.givenThree
-                      },
-                      {
-                        color: '#00CC0B',
-                        value: this.state.givenFour
-                      },
-                      {
-                        color: '#0080CC',
-                        value: this.state.givenFive
-                      }
-                    ]} /> :
-                    <PieChart slices={[{color: 'black', value: 1}]} /> }
+                    <DonutChart
+                      data={discoverPieData} /> :
+                    <DonutChart
+                      data={nullPie} />
+                  }
                   <div className="pie-chart-key red">
                     <strong className="pie-chart-key-label">1</strong>
                   </div>
@@ -478,3 +456,30 @@ class Main extends Component {
 }
 
 export default Main;
+
+/*
+                  <PieChart
+                    slices={[
+                      {
+                        color: '#B30000',
+                        value: this.state.givenOne
+                      },
+                      {
+                        color: '#CC6600',
+                        value: this.state.givenTwo
+                      },
+                      {
+                        color: '#C1CC00',
+                        value: this.state.givenThree
+                      },
+                      {
+                        color: '#00CC0B',
+                        value: this.state.givenFour
+                      },
+                      {
+                        color: '#0080CC',
+                        value: this.state.givenFive
+                      }
+                    ]} /> :
+                    <PieChart slices={[{color: 'black', value: 1}]} />
+                    */

@@ -11,6 +11,7 @@ class RecipeList extends Component {
 		super(props)
 		this.state = {
 			recipeData: [],
+			recipeDataWithAverageRatings: [],
 			loading: false,
 			recipeDeleteID: '',
 			deleteRecipeConfirmation: false,
@@ -23,7 +24,7 @@ class RecipeList extends Component {
 			ingredientABV: [],
 			parts: [],
 			totalABV: null,
-			sort: 'alpha'
+			sort: 'Alphabetical A-Z'
 		}
 	}
 
@@ -192,17 +193,37 @@ class RecipeList extends Component {
 	render() {
 	const recipes = this.state.recipeData
 	.filter(recipe => this.checkStringEquality(this.props.query,recipe.recipeName,recipe.ingredientsString,recipe.recipeCreator))
+	.map((recipe,index) => {
+		let object = Object.assign({}, recipe);
+		let averageRecipeRating = this.getAverageRating(recipe.userRatings);
+		object.averageRecipeRating = averageRecipeRating;
+		return object;
+	})
 	.sort((a,b) => {
-		if (this.state.sort === 'alpha') {
+		if (this.state.sort === 'Alphabetical A-Z') {
 			return (a.recipeName > b.recipeName);
 		}
+		if (this.state.sort === 'Alphabetical Z-A') {
+			return (a.recipeName < b.recipeName);
+		}
+		if (this.state.sort === 'Highest Rated') {
+			return (a.averageRecipeRating < b.averageRecipeRating)
+		}
+		if (this.state.sort === 'Lowest Rated') {
+			return (a.averageRecipeRating > b.averageRecipeRating)
+		}
+		if (this.state.sort === 'Highest ABV') {
+			return (a.totalABV < b.totalABV)
+		}
+		if (this.state.sort === 'Lowest ABV') {
+			return (a.totalABV > b.totalABV)
+		}
 		else {
-			return 0;
+			return 0
 		}
 	})		
 	.map((recipe,index) => {
 		let userRated = this.checkIfUserRatedRecipe(recipe.userRatings);
-		let averageRecipeRating = this.getAverageRating(recipe.userRatings);
 		let userRecipe;
 		if (recipe.recipeCreator === this.props.currentUser) {
 			userRecipe = true;
@@ -213,12 +234,6 @@ class RecipeList extends Component {
 		let manageMode = this.props.manage;
 		return (
 			<li key={index} className="recipe-result col-12">
-				{userRecipe && manageMode ?
-					<div>
-						<button className="edit-button" onClick={this.editRecipePopup.bind(this,recipe)}>Edit</button>
-						<button className="delete-button" onClick={this.confirmDelete.bind(this,recipe.id)}>Delete</button> 
-					</div>:
-					null}
 				<strong>{recipe.recipeName}</strong><span> ({parseFloat(recipe.totalABV).toFixed(2)}% ABV)</span><br/>
 				{manageMode ?
 					null :
@@ -228,14 +243,14 @@ class RecipeList extends Component {
 					<ReactStars 
 						className={"rating-stars"}
 						count={5}
-						value={averageRecipeRating}
+						value={recipe.averageRecipeRating}
 						color1={"black"}
 						color2={"#CA0000"}
 						size={25}
 						edit={false} 
 						half={false} />
 				<span className="user-rating-number">
-					{averageRecipeRating}
+					{recipe.averageRecipeRating}
 					{recipe.userRatings.length > 0 ?
 						` (${recipe.userRatings.length})` :
 						null}
@@ -270,6 +285,12 @@ class RecipeList extends Component {
 					<li key={index} className="recipe-ingredient">{ingredient}</li>
 				)}
 				</ul>
+				{userRecipe && manageMode ?
+				<div>
+					<button className="edit-button" onClick={this.editRecipePopup.bind(this,recipe)}>Edit</button>
+					<button className="delete-button" onClick={this.confirmDelete.bind(this,recipe.id)}>Delete</button> 
+				</div>:
+				null}
 			</li>
 		)
 	});
