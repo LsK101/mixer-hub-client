@@ -294,14 +294,14 @@ class Main extends Component {
       {value: this.state.ratedLessThanThree, stroke: '#CC7013', strokeWidth: 10},
       {value: this.state.ratedLessThanFour, stroke: '#CCCC13', strokeWidth: 10},
       {value: this.state.ratedLessThanFive, stroke: '#70CC13', strokeWidth: 10},
-      {value: this.state.ratedFive, stroke: '#13CC70', strokeWidth: 10}
+      {value: this.state.ratedFive, stroke: '#13CCCC', strokeWidth: 10}
     ];
     let discoverPieData = [
       {value: this.state.givenOne, stroke: '#CC1313', strokeWidth: 10},
       {value: this.state.givenTwo, stroke: '#CC7013', strokeWidth: 10},
       {value: this.state.givenThree, stroke: '#CCCC13', strokeWidth: 10},
       {value: this.state.givenFour, stroke: '#70CC13', strokeWidth: 10},
-      {value: this.state.givenFive, stroke: '#13CC70', strokeWidth: 10}
+      {value: this.state.givenFive, stroke: '#13CCCC', strokeWidth: 10}
     ];
     const nullPie = [
       {value: 1, stroke: '#000000', strokeWidth: 10}
