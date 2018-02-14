@@ -208,16 +208,16 @@ class RecipeList extends Component {
 	})
 	.sort((a,b) => {
 		if (this.state.sort === 'Recipe Name A-Z') {
-			return (a.recipeName > b.recipeName ? 1 : -1);
+			return (a.recipeName.toLowerCase() > b.recipeName.toLowerCase() ? 1 : -1);
 		}
 		if (this.state.sort === 'Recipe Name Z-A') {
-			return (a.recipeName < b.recipeName ? 1 : -1);
+			return (a.recipeName.toLowerCase() < b.recipeName.toLowerCase() ? 1 : -1);
 		}
 		if (this.state.sort === 'Recipe Mixer A-Z') {
-			return (a.recipeCreator > b.recipeCreator ? 1 : -1);
+			return (a.recipeCreator.toLowerCase() > b.recipeCreator.toLowerCase() ? 1 : -1);
 		}
 		if (this.state.sort === 'Recipe Mixer Z-A') {
-			return (a.recipeCreator < b.recipeCreator ? 1 : -1);
+			return (a.recipeCreator.toLowerCase() < b.recipeCreator.toLowerCase() ? 1 : -1);
 		}
 		if (this.state.sort === 'Highest Rated') {
 			let ratingA;
