@@ -208,16 +208,16 @@ class RecipeList extends Component {
 	})
 	.sort((a,b) => {
 		if (this.state.sort === 'Recipe Name A-Z') {
-			return (a.recipeName > b.recipeName);
+			return (a.recipeName > b.recipeName ? 1 : -1);
 		}
 		if (this.state.sort === 'Recipe Name Z-A') {
-			return (a.recipeName < b.recipeName);
+			return (a.recipeName < b.recipeName ? 1 : -1);
 		}
 		if (this.state.sort === 'Recipe Mixer A-Z') {
-			return (a.recipeCreator > b.recipeCreator);
+			return (a.recipeCreator > b.recipeCreator ? 1 : -1);
 		}
 		if (this.state.sort === 'Recipe Mixer Z-A') {
-			return (a.recipeCreator < b.recipeCreator);
+			return (a.recipeCreator < b.recipeCreator ? 1 : -1);
 		}
 		if (this.state.sort === 'Highest Rated') {
 			let ratingA;
@@ -234,7 +234,7 @@ class RecipeList extends Component {
 			else {
 				ratingB = b.averageRecipeRating;
 			}
-			return (ratingA < ratingB)
+			return (ratingA < ratingB ? 1 : -1)
 		}
 		if (this.state.sort === 'Lowest Rated') {
 			let ratingA;
@@ -251,19 +251,19 @@ class RecipeList extends Component {
 			else {
 				ratingB = b.averageRecipeRating;
 			}
-			return (ratingA > ratingB)
+			return (ratingA > ratingB ? 1 : -1)
 		}
 		if (this.state.sort === 'Highest ABV') {
-			return (a.totalABV < b.totalABV)
+			return (a.totalABV < b.totalABV ? 1 : -1)
 		}
 		if (this.state.sort === 'Lowest ABV') {
-			return (a.totalABV > b.totalABV)
+			return (a.totalABV > b.totalABV ? 1 : -1)
 		}
 		if (this.state.sort === 'Most Ingredients') {
-			return (a.ingredients < b.ingredients)
+			return (a.ingredients < b.ingredients ? 1 : -1)
 		}
 		if (this.state.sort === 'Least Ingredients') {
-			return (a.ingredients > b.ingredients)
+			return (a.ingredients > b.ingredients ? 1 : -1)
 		}
 		else {
 			return 0
