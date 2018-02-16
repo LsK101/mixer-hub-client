@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './landing.css';
+import CreateGraphic from '../create-graphic.png';
 
 class Landing extends Component {
   render() {
@@ -24,7 +25,7 @@ class Landing extends Component {
       		</div>
 
       		<div className="col-6">
-                        <img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
+                        <img className="logo" src={CreateGraphic} alt="a beverage shaker, a martini glass, and a liquor bottle" />
       		</div>
       	</section>
 
