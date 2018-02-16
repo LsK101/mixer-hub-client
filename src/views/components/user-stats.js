@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import './main.css';
-import {API_BASE_URL} from '../config.js';
-import LoadingPopup from './components/loading';
+import '../main.css';
+import './user-stats.css'
+import {API_BASE_URL} from '../../config.js';
+import LoadingPopup from './loading';
 import ReactStars from 'react-stars';
 import DonutChart from 'react-svg-donut-chart';
 
-class Main extends Component {
+class UserStats extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -80,7 +81,7 @@ class Main extends Component {
 
   getUserGivenRatings() {
     let recipesUserRated = this.state.recipeData
-      .filter((recipe) => this.findUserInUserRatings(this.props.currentUser,recipe.userRatings));
+      .filter((recipe) => this.findUserInUserRatings(this.props.searchUser,recipe.userRatings));
     this.setState({
       recipesRated: recipesUserRated
     });
@@ -136,7 +137,7 @@ class Main extends Component {
     for (let i = 0; i < this.state.recipesRated.length; i++) {
       let userRating = this.state.recipesRated[i].userRatings
         .find((array) => {
-          return array.username === this.props.currentUser;
+          return array.username === this.props.searchUser;
         })
         .rating;
       if (userRating === 1) {
@@ -191,7 +192,7 @@ class Main extends Component {
 
   getRecipesCreated() {
     let recipes = this.state.recipeData
-    .filter((recipe) => this.checkUsernameEquality(this.props.currentUser,recipe.recipeCreator))
+    .filter((recipe) => this.checkUsernameEquality(this.props.searchUser,recipe.recipeCreator))
     return this.setState({
       userRecipes: recipes
     });
@@ -307,10 +308,13 @@ class Main extends Component {
       {value: 1, stroke: '#000000', strokeWidth: 10}
     ];
     return (
-          <div className="dashboard-container">
+      <div className="user-stats-popup">
+        <div className="user-stats-popup-inner">
             <section className="stats-section-header row">
               <div className="col-12">
-                <h2 className="dashboard-header">{this.props.currentUser}'s Stats</h2>
+                <h2 className="dashboard-header">{this.props.searchUser}'s Stats</h2>
+                <button type="button" className="back-button"
+                  onClick={this.props.goBack}>Back</button>
               </div>
       		  </section>
 
@@ -450,9 +454,10 @@ class Main extends Component {
           {this.state.loading ? 
             <LoadingPopup />
             : null}
-          </div>
+        </div>
+      </div>
     );
   }
 }
 
-export default Main;
+export default UserStats;

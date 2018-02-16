@@ -5,6 +5,7 @@ import ReactStars from 'react-stars';
 import LoadingPopup from './loading';
 import ConfirmDelete from './confirm-delete';
 import RecipeEditor from './recipe-editor';
+import UserStats from './user-stats';
 
 class RecipeList extends Component {
 	constructor(props) {
@@ -24,7 +25,10 @@ class RecipeList extends Component {
 			ingredientABV: [],
 			parts: [],
 			totalABV: null,
-			sort: 'Recipe Name A-Z'
+			sort: 'Recipe Name A-Z',
+			userStatsPopup: false,
+			userToRetrieveStats: '',
+			noScroll: false
 		}
 	}
 
@@ -61,10 +65,23 @@ class RecipeList extends Component {
     	});
   	}
 
+  	toggleUserStatsPopup() {
+    	this.setState({
+      		userStatsPopup: !this.state.userStatsPopup
+    	});
+  	}
+
   	toggleDeleteRecipeConfirmation() {
     	this.setState({
       		deleteRecipeConfirmation: !this.state.deleteRecipeConfirmation
     	});
+  	}
+
+  	showUserStats(user) {
+  		this.setState({
+  			userToRetrieveStats: user
+  		});
+  		this.toggleUserStatsPopup();
   	}
 
   	editRecipePopup(recipe) {
@@ -285,7 +302,9 @@ class RecipeList extends Component {
 				{manageMode ?
 					null :
 				<div>
-				<span>Mixed by: </span><span className="creator-label">{recipe.recipeCreator}</span><br/>
+				<span>Mixed by: </span>
+				<a href="#" className="creator-label"
+					onClick={this.showUserStats.bind(this,recipe.recipeCreator)}>{recipe.recipeCreator}</a><br/>
 				<span className="user-rating-label">User Rating: </span>
 					<ReactStars 
 						className={"rating-stars"}
@@ -391,6 +410,13 @@ class RecipeList extends Component {
             		</div>
             	</div>
             	: null}
+
+            {this.state.userStatsPopup ?
+            	<UserStats
+            		searchUser={this.state.userToRetrieveStats}
+            		authToken={this.props.authToken}
+            		goBack={this.toggleUserStatsPopup.bind(this)} />
+        		: null}
 		</div>
 	);
 	}

@@ -8,7 +8,7 @@ class MainNavBar extends Component {
       	<div className="main-navbar-container">
       		<div className="nav-links-container col-12">
       			<ul className="nav-links">
-              <li><Link to="/main" className="nav-link">Dashboard</Link></li>
+              <li><Link to="/main" className="nav-link">My Stats</Link></li>
               <li><Link to="/create" className="nav-link">Create Recipe</Link></li>
               <li><Link to="/browse" className="nav-link">Browse Recipes</Link></li>
               {this.props.currentUser === 'demo' ?
