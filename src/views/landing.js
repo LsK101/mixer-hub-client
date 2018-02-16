@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './landing.css';
 import CreateGraphic from '../create-graphic.png';
+import DiscoverGraphic from '../discover-graphic.png';
+import CritiqueGraphic from '../critique-graphic.png';
 
 class Landing extends Component {
   render() {
@@ -40,7 +42,7 @@ class Landing extends Component {
       		</div>
 
                   <div className="col-6">
-                        <img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
+                        <img className="logo" src={DiscoverGraphic} alt="a magnifying glass and a martini glass" />
                   </div>
       	</section>
 
@@ -54,7 +56,7 @@ class Landing extends Component {
       		</div>
 
       		<div className="col-6">
-                        <img className="logo" src="https://sunrisehouse.com/wp-content/uploads/2016/12/alcoholic-drinks.jpg" alt="various alcoholic beverages" />
+                        <img className="logo" src={CritiqueGraphic} alt="various alcoholic beverages" />
       		</div>
       	</section>
 
