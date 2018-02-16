@@ -303,7 +303,7 @@ class RecipeList extends Component {
 					null :
 				<div>
 				<span>Mixed by: </span>
-				<a href="#" className="creator-label"
+				<a className="creator-label" tabindex="0"
 					onClick={this.showUserStats.bind(this,recipe.recipeCreator)}>{recipe.recipeCreator}</a><br/>
 				<span className="user-rating-label">User Rating: </span>
 					<ReactStars 
