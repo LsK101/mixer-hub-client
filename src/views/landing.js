@@ -16,6 +16,9 @@ class Landing extends Component {
 
             <section className="create-recipe-info row">
                   <div className="col-6">
+                        <img className="logo" src={CreateGraphic} alt="a beverage shaker, a martini glass, and a liquor bottle" />
+                  </div>
+                  <div className="col-6">
                         <h2>Create</h2>
                         <p>
                               Share your favorite drink recipes and
@@ -25,13 +28,12 @@ class Landing extends Component {
                               to your liking.    
                         </p>
       		</div>
-
-      		<div className="col-6">
-                        <img className="logo" src={CreateGraphic} alt="a beverage shaker, a martini glass, and a liquor bottle" />
-      		</div>
       	</section>
 
       	<section className="browse-recipes-info row">
+                  <div className="col-6">
+                        <img className="logo" src={DiscoverGraphic} alt="a magnifying glass and a martini glass" />
+                  </div>
       		<div className="col-6">
                         <h2>Discover</h2>
                         <p>
@@ -40,23 +42,18 @@ class Landing extends Component {
                               like!
                         </p>
       		</div>
-
-                  <div className="col-6">
-                        <img className="logo" src={DiscoverGraphic} alt="a magnifying glass and a martini glass" />
-                  </div>
       	</section>
 
       	<section className="rate-recipes-info row">
+                  <div className="col-6">
+                        <img className="logo" src={CritiqueGraphic} alt="various alcoholic beverages" />
+                  </div>
       		<div className="col-6">
                         <h2>Critique</h2>
                         <p>
                               Give feedback on other's recipes and
                               receive feedback on your own. 
                         </p>
-      		</div>
-
-      		<div className="col-6">
-                        <img className="logo" src={CritiqueGraphic} alt="various alcoholic beverages" />
       		</div>
       	</section>
 
