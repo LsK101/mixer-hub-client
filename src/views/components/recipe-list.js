@@ -27,8 +27,7 @@ class RecipeList extends Component {
 			totalABV: null,
 			sort: 'Recipe Name A-Z',
 			userStatsPopup: false,
-			userToRetrieveStats: '',
-			noScroll: false
+			userToRetrieveStats: ''
 		}
 	}
 
