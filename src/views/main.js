@@ -323,7 +323,7 @@ class Main extends Component {
       		  <section className="create-stats-section row">
               <div className="pie-chart-section col-6">
                 <div className="pie-chart-container">
-                  <strong>Average Recipe Rating</strong>
+                  <strong>Average Recipe Ratings</strong>
                   {this.state.recipesCreatedAndRated >= 1 ?
                     <DonutChart
                       data={createPieData} /> :
