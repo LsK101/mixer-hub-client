@@ -200,10 +200,10 @@ class RecipeList extends Component {
 	checkIfUserRatedRecipe(recipeRatings) {
 		for (let i = 0; i < recipeRatings.length; i++) {
 			if (recipeRatings[i].username === this.props.currentUser) {
-				return recipeRatings[i].rating.toFixed(1);
+				return parseInt(recipeRatings[i].rating,10);
 			}
 		}
-		return 'No Rating';
+		return 0;
 	}
 
 	changeSortMethod(event) {
@@ -294,6 +294,7 @@ class RecipeList extends Component {
 		else {
 			userRecipe = false;
 		}
+		let recipeRating = parseInt(recipe.averageRecipeRating,10);
 		let manageMode = this.props.manage;
 		return (
 			<li key={index} className="recipe-result col-12">
@@ -302,13 +303,13 @@ class RecipeList extends Component {
 					null :
 				<div>
 				<span>Mixed by: </span>
-				<a className="creator-label" tabindex="0"
+				<a className="creator-label" tabIndex="0"
 					onClick={this.showUserStats.bind(this,recipe.recipeCreator)}>{recipe.recipeCreator}</a><br/>
 				<span className="user-rating-label">User Rating: </span>
 					<ReactStars 
 						className={"rating-stars"}
 						count={5}
-						value={recipe.averageRecipeRating}
+						value={recipeRating}
 						color1={"black"}
 						color2={"#CA0000"}
 						size={25}
