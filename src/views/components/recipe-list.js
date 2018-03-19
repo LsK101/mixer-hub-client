@@ -294,7 +294,7 @@ class RecipeList extends Component {
 		else {
 			userRecipe = false;
 		}
-		let recipeRating = parseInt(recipe.averageRecipeRating,10);
+		let recipeRating = parseFloat(recipe.averageRecipeRating,10);
 		let manageMode = this.props.manage;
 		return (
 			<li key={index} className="recipe-result col-12">
