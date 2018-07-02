@@ -19,5 +19,4 @@ Created using HTML, CSS, JavaScript, Node.js, and React.
 Work In Progress:
 -Commenting system
 -User profile pages
--Other modifications to improve QOL
 -Implementing Redux
